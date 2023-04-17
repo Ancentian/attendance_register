@@ -26,12 +26,10 @@ class Auth_model extends CI_Model
 
         // select the user
         $this->db->select('users.*')->from('users');
-        $this->db->where('member_id', $login['member_id']);
-        // $this->db->where('status',$this->status_active);
+        $this->db->where('email', $login['email']);
+
         $query = $this->db->get();
         $res = $query->result_array();
-
-        // echo json_encode($login['email']);die;
 
         if (sizeof($res) > 0) {
             $result = $res[0];

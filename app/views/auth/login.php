@@ -36,12 +36,12 @@
                             <?php if ($this->session->flashdata('error-msg')) { ?>
                                 <div class="alert alert-danger"><?php echo $this->session->flashdata('error-msg'); ?></div>
                             <?php } ?>
-                            <h2>Sign in</h2>
+                            &nbsp;
 
                             <form action="<?php echo base_url('auth/login_post'); ?>" method="POST">
                                 <div class="form-group">
-                                    <label>Member ID <span class="login-danger">*</span></label>
-                                    <input class="form-control" name="member_id" type="text">
+                                    <label>Email <span class="login-danger">*</span></label>
+                                    <input class="form-control" name="email" type="text">
                                     <span class="profile-views"><i class="fas fa-user-circle"></i></span>
                                 </div>
                                 <div class="form-group">

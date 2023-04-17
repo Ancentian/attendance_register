@@ -25,6 +25,7 @@ class Staff extends BASE_Controller
         }
         $this->load->model('staff_model');
         $this->load->model('auth_model');
+        $this->load->model('cooperative_model', 'cooperative');
     }
 
     function index()
@@ -32,14 +33,15 @@ class Staff extends BASE_Controller
         $this->data['users'] = $this->staff_model->fetch_staff();
         $this->data['pg_title'] = "Users";
         $this->data['page_content'] = 'users/index';
-        $this->load->view('layout/users', $this->data);
+        $this->load->view('layout/member', $this->data);
     }
 
     function addUser()
     {
+        $this->data['cooperatives'] = $this->cooperative->get_cooperatives();
         $this->data['pg_title'] = "Add User";
         $this->data['page_content'] = 'users/addUser';
-        $this->load->view('layout/template', $this->data);
+        $this->load->view('layout/member', $this->data);
     }
 
     function editUser(int $id)

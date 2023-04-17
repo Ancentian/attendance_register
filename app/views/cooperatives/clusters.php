@@ -4,10 +4,10 @@
         <div class="page-header">
             <div class="row align-items-center">
                 <div class="col">
-                    <h3 class="page-title">Clusters</h3>
+                    <h3 class="page-title">CBT's</h3>
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="<?php echo base_url('home') ?>">Dashboard</a></li>
-                        <li class="breadcrumb-item active">Clusters</li>
+                        <li class="breadcrumb-item active">CBT's</li>
                     </ul>
                 </div>
             </div>
@@ -28,7 +28,7 @@
                         <div class="page-header">
                             <div class="row align-items-center">
                                 <div class="col">
-                                    <h3 class="page-title">Clusters</h3>
+                                    <h3 class="page-title">CBT's</h3>
                                 </div>
                                 <div class="col-auto text-end float-end ms-auto download-grp">
                                     <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCluster"><i class="fas fa-plus"></i></a>
@@ -41,8 +41,9 @@
                             <thead class="student-thread">
                                 <tr>
                                     <th>*</th>
-                                    <th>Cluster</th>
+                                    <th>CBT</th>
                                     <th>Cooperative</th>
+                                    <th>Trainer</th>
                                     <th class="text-end">Action</th>
                                 </tr>
                             </thead>
@@ -60,14 +61,14 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="standard-modalLabel">Add Cluster</h4>
+                    <h4 class="modal-title" id="standard-modalLabel">Add CBT(Cluster)</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form>
                         <div class="row">
                             <div class="col-12">
-                                <h5 class="form-title"><span>Cluster Details</span></h5>
+                                <h5 class="form-title"><span>CBT Details</span></h5>
                             </div>
                             <div class="col-12 col-sm-12">
                                     <div class="form-group local-forms">
@@ -82,11 +83,21 @@
                                 </div>
                             <div class="col-12 col-sm-12">
                                 <div class="form-group local-forms">
-                                    <label>Cluster Name <span class="login-danger">*</span></label>
+                                    <label>CBT Name <span class="login-danger">*</span></label>
                                     <input type="text" name="cluster_name" id="cluster_name" class="form-control" required>
                                 </div>
                             </div>
-                            
+                            <div class="col-12 col-sm-12">
+                                    <div class="form-group local-forms">
+                                        <label>Trainer <span class="login-danger">*</span></label>
+                                        <select class="form-control " id="trainer_id" name="trainer_id" required>
+                                            <option value="">--Choose--</option>
+                                            <?php foreach ($trainers as $key) {?>
+                                            <option value="<?php echo $key->id; ?>"><?php echo $key->first_name." ".$key->last_name;?></option>
+                                            <?php }?>
+                                        </select>
+                                    </div>
+                                </div>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -99,7 +110,7 @@
     </div>
 
     <footer>
-    <p>Copyright © 2023 CoWA.</p>
+    <p>Copyright © 2023 Anc.</p>
 </footer>
 </div>
 </div>
@@ -130,44 +141,51 @@
           
         //function show all product
         function show_product(){
-            $.ajax({
-                type  : 'ajax',
-                url   : '<?php echo site_url('cooperatives/cluster_data')?>',
-                async : true,
-                dataType : 'json',
-                success : function(data){
-                    var html = '';
-                    var i;
-                    var rowIdx = 1;
-                    for(i=0; i<data.length; i++){
-                        html += '<tr>'+
-                                '<td>'+data[i].id+'</td>'+
-                                '<td>'+data[i].cluster_name+'</td>'+
-                                '<td>'+data[i].cooperative_name+'</td>'+
-                                '<td style="text-align:right;">'+
-                                    '<a href="javascript:void(0);" class="btn btn-success btn-sm training_edit" data-id="'+data[i].id+'" data-training_name="'+data[i].training_name+'" data-training_date="'+data[i].training_date+'"><i class="fa fa-edit"></i></a>'+' '+
-                                    '<a href="javascript:void(0);" class="btn btn-danger btn-sm training_delete" data-id="'+data[i].id+'"><i class="fa fa-trash"></i></a>'+
-                                '</td>'+
-                                '</tr>';
-                    }
-                    $('#show_data').html(html);
-                }
- 
-            });
+    $.ajax({
+        type  : 'ajax',
+        url   : '<?php echo site_url('cooperatives/cluster_data')?>',
+        async : true,
+        dataType : 'json',
+        success : function(data){
+            var html = '';
+            var i;
+            var rowIdx = 1;
+            for(i=0; i<data.length; i++){
+                var fullName = data[i].first_name + ' ' + data[i].last_name; // concatenate first_name with last_name
+                html += '<tr>'+
+                        '<td>'+rowIdx+'</td>'+ // add rowIdx in the first column
+                        '<td>'+data[i].cluster_name+'</td>'+
+                        '<td>'+data[i].cooperative_name+'</td>'+
+                        '<td>'+fullName+'</td>'+ // use the fullName variable instead of data[i].first_name
+                        '<td style="text-align:right;">'+
+                            '<a href="javascript:void(0);" class="btn btn-success btn-sm training_edit" data-id="'+data[i].id+'" data-training_name="'+data[i].training_name+'" data-training_date="'+data[i].training_date+'"><i class="fa fa-edit"></i></a>'+' '+
+                            '<a href="javascript:void(0);" class="btn btn-danger btn-sm training_delete" data-id="'+data[i].id+'"><i class="fa fa-trash"></i></a>'+
+                        '</td>'+
+                        '</tr>';
+                rowIdx++; // increment rowIdx
+            }
+            $('#show_data').html(html);
         }
+
+    });
+}
+
+
  
         //Save product
         $('#btn_save').on('click',function(){
             var cooperative_id = $('#cooperative_id').val();
             var cluster_name = $('#cluster_name').val();
+            var trainer_id = $('#trainer_id').val();
             $.ajax({
                 type : "POST",
                 url  : "<?php echo base_url('cooperatives/store_cluster')?>",
                 dataType : "JSON",
-                data : {cooperative_id:cooperative_id , cluster_name:cluster_name},
+                data : {cooperative_id:cooperative_id , cluster_name:cluster_name, trainer_id:trainer_id},
                 success: function(data){
                     $('[name="cooperative_id"]').val("");
                     $('[name="cluster_name"]').val("");
+                    $('[name="trainer_id"]').val("");
                     $('#addCluster').modal('hide');
                     show_product();
                 }

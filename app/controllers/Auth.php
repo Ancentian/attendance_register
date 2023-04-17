@@ -29,15 +29,14 @@ class Auth extends CI_Controller {
             redirect('home/index');
         }
         $formInput = $this->input->post();
-        $member_id = $formInput['member_id'];
+        $email = $formInput['email'];
         $password = $formInput['password'];
-        //var_dump($formInput);die;
+
         // define data to send
-        $logindata = ['member_id' => $member_id, 'password' => $password];
+        $logindata = ['email' => $email, 'password' => $password];
 
         $loginresponse = json_decode($this->auth_model->login($logindata));
-        // var_dump($loginresponse);die;
-        // echo $loginresponse->message;die;
+
         if ($loginresponse->status == '1') {
             $this->session->set_userdata('user_aob', $loginresponse->userdata);
             redirect('home/index');

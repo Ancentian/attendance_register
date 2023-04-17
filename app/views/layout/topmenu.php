@@ -32,7 +32,7 @@
                             <img class="rounded-circle" src="<?php echo base_url() ?>res/assets/img/profiles/avatar-01.jpg" width="31"
                                 alt="Soeng Souy">
                             <div class="user-text">
-                                <h6><?php echo $this->session->userdata('user_aob')->member_id?></h6>
+                                <h6><?php echo $this->session->userdata('user_aob')->first_name?> <?php echo $this->session->userdata('user_aob')->last_name?></h6>
                                 <p class="text-muted mb-0">Administrator</p>
                             </div>
                         </span>
@@ -44,7 +44,7 @@
                                     class="avatar-img rounded-circle">
                             </div>
                             <div class="user-text">
-                                <h6><?php echo $this->session->userdata('user_aob')->member_id?></h6>
+                                <h6><?php echo $this->session->userdata('user_aob')->first_name?> <?php echo $this->session->userdata('user_aob')->last_name?></h6>
                                 <p class="text-muted mb-0">Administrator</p>
                             </div>
                         </div>

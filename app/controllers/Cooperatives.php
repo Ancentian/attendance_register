@@ -23,6 +23,7 @@ class Cooperatives extends BASE_Controller
     function clusters()
     {
         $this->data['cooperatives'] = $this->cooperative_model->get_cooperatives();
+         $this->data['trainers'] = $this->training_model->get_trainers();
         $this->data['pg_title'] = "Clusters";
         $this->data['page_content'] = 'cooperatives/clusters';
         $this->load->view('layout/training', $this->data);
@@ -49,6 +50,7 @@ class Cooperatives extends BASE_Controller
         $clusterdata = array(
                 'cooperative_id'  => $this->input->post('cooperative_id'), 
                 'cluster_name' => $this->input->post('cluster_name'),
+                'trainer_id' => $this->input->post('trainer_id'),
                 'created_by' => $this->session->userdata('user_aob')->id,
             );
         $data = $this->cooperative_model->save_cluster($clusterdata);

@@ -5,9 +5,9 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="page-sub-header">
-                        <h3 class="page-title">Welcome Admin!</h3>
+                        <h3 class="page-title">Welcome <?php echo $this->session->userdata('user_aob')->last_name?>!</h3>
                         <ul class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li class="breadcrumb-item"><a href="<?php echo base_url('home') ?>">Home</a></li>
                             <li class="breadcrumb-item active">Admin</li>
                         </ul>
                     </div>
@@ -67,7 +67,7 @@
                     <div class="card-body">
                         <div class="db-widgets d-flex justify-content-between align-items-center">
                             <div class="db-info">
-                                <h6>Clusters</h6>
+                                <h6>CBT's</h6>
                                 <h3><?php echo $this->home_model->count_clusters() ?></h3>
                             </div>
                             <div class="db-icon">

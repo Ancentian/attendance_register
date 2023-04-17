@@ -31,7 +31,6 @@
                                         <ul>
                                             <li><a href="<?php echo base_url('members/index')?>">Members List</a></li>
                                             <li><a href="<?php echo base_url('members/addMember')?>">Add Member</a></li>
-                                            <li><a href="<?php echo base_url('members/memberProfile?memberID='. $this->session->userdata('user_aob')->member_id)?>">My Profile</a></li>
                                         </ul>
                                 </li>
                                 
@@ -44,21 +43,18 @@
                                     <a href="#"><i class="fas fa-cog"></i> <span> Settings</span> <span
                                         class="menu-arrow"></span></a>
                                         <ul>
-                                            <li hidden><a href="<?php echo base_url('management/roles')?>">Roles</a></li>
                                             <li><a href="<?php echo base_url('cooperatives/index')?>">Cooperatives</a></li>
-                                            <li><a href="<?php echo base_url('cooperatives/clusters')?>">Clusters</a></li>                                          
+                                            <li><a href="<?php echo base_url('cooperatives/clusters')?>">CBT's</a></li>                                          
                                         </ul>
                                     </li>
                                     
                                     
-                                    <li class="submenu" hidden>
+                                    <li class="submenu">
                                         <a href="#"><i class="fas fa-shield-alt"></i> <span> Authentication </span> <span
                                             class="menu-arrow"></span></a>
                                         <ul>
-                                            <li><a href="login.html">Login</a></li>
-                                            <li><a href="register.html">Register</a></li>
-                                            <li><a href="forgot-password.html">Forgot Password</a></li>
-                                            <li><a href="error-404.html">Error Page</a></li>
+                                            <li><a href="<?php echo base_url('staff/index')?>">Users</a></li>
+                                            <li><a href="<?php echo base_url('management/roles')?>">Roles</a></li>
                                         </ul>
                                     </li>                        
                                     </ul>
