@@ -6,7 +6,7 @@
                 <div class="col">
                     <h3 class="page-title">Add Member</h3>
                     <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="teachers.html">Member</a></li>
+                        <li class="breadcrumb-item"><a href="<?php echo base_url('home') ?>">Member</a></li>
                         <li class="breadcrumb-item active">Add Member</li>
                     </ul>
                 </div>
@@ -81,6 +81,7 @@
                                     <div class="form-group local-forms">
                                         <label>Gender <span class="login-danger">*</span></label>
                                         <select class="form-control select" name="gender" required>
+                                            <option value="">--Choose--</option>
                                             <option value="male">Male</option>
                                             <option value="female">Female</option>
                                             <option value="others">Others</option>
@@ -96,7 +97,13 @@
                                 <div class="col-12 col-sm-4">
                                     <div class="form-group local-forms">
                                         <label>Age <span class="login-danger">*</span></label>
-                                        <input type="number" class="form-control" name="age" placeholder="Enter Age">
+                                        <select class="form-control select" name="age" required>
+                                            <option value="">--Choose Range--</option>
+                                            <option value="18-25">18-25</option>
+                                            <option value="26-35">26-35</option>
+                                            <option value="36-50">36-50</option>
+                                            <option value="50+">50+</option>
+                                        </select>
                                     </div>
                                 </div>
                                 

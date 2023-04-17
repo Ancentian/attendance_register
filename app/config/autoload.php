@@ -2,7 +2,7 @@
 
 $autoload['packages'] = array();
 
-$autoload['libraries'] = array('session', 'form_validation', 'Rememberme', 'user_agent', 'PHPMailer', 'Excel','database','email', 'toastr');
+$autoload['libraries'] = array('session', 'form_validation', 'Rememberme', 'user_agent', 'PHPMailer','database','email', 'toastr');
 
 $autoload['helper'] = array('cookie', 'url', 'file','date');
 

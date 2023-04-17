@@ -6,7 +6,7 @@ $query_builder = TRUE;
 $hostname ='localhost';
 $username ='root';
 $password ='';
-$database ='avsi_register';
+$database ='register';
 // $database ='fortsort_newdawn_test';
 
 $db['default'] = array(

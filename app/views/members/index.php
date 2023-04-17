@@ -43,7 +43,7 @@
                                         <th>*</th>
                                         <th>Name</th>
                                         <th>Cooperative</th>
-                                        <th>Cluster</th>
+                                        <th>CBT</th>
                                         <th>Gender</th>
                                         <th>Mobile No.</th>
                                         <th>Created By</th>
