@@ -28,7 +28,7 @@
                         <div class="page-header">
                             <div class="row align-items-center">
                                 <div class="col">
-                                    <h3 class="page-title">Attendance List for <?php echo $members->training_id[0]?></h3>
+                                    <h3 class="page-title">Attendance List<?php //echo $this->training_model->get_trainingByName($training_id);?></h3>
                                 </div>
                                 <div class="col-auto text-end float-end ms-auto download-grp">
 
@@ -64,7 +64,7 @@
                                             <!-- <td><?php //echo $key->attendance_value?></td> -->
                                             <td>
                                                 <?php if ($key->attendance_value == 1): ?>
-                                                <input class="form-check-input check-item" type="checkbox" checked >
+                                                <input class="form-check-input check-item" type="checkbox" checked disabled>
                                                 <?php else: ?>
                                                     <input class="form-check-input check-item" type="checkbox" disabled>
                                                 <?php endif; ?>

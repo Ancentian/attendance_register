@@ -43,7 +43,7 @@
                                         <th>*</th>
                                         <th>Name</th>
                                         <th>Cooperative</th>
-                                        <th>CBT</th>
+                                        <th>Cluster</th>
                                         <th>Gender</th>
                                         <th>Mobile No.</th>
                                         <th>Created By</th>
@@ -68,7 +68,7 @@
                                                 <i class="feather-eye"></i>
                                             </a>
                                             
-                                            <a href="<?php echo base_url('members/editMember?memberID='. $key['member_id'])?>" class="btn btn-sm bg-danger-light">
+                                            <a href="<?php echo base_url('members/editMember?memberID='. $key['id_number'])?>" class="btn btn-sm bg-danger-light">
                                                 <i class="feather-edit"></i>
                                             </a>
 

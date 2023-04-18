@@ -10,19 +10,19 @@
                         class="menu-arrow"></span></a>
                         <ul>
                             <li><a href="<?php echo base_url('home/index')?>" class="active">Admin Dashboard</a></li>
-                                <!-- <li><a href="teacher-dashboard.html">Teacher Dashboard</a></li>
-                                    <li><a href="student-dashboard.html">Student Dashboard</a></li> -->
+
                                 </ul>
                             </li>
                             <li class="submenu">
                                 <a href="#"><i class="fas fa-graduation-cap"></i> <span> Training</span> <span
                                     class="menu-arrow"></span></a>
                                     <ul>
-                                        <li><a href="<?php echo base_url('training/index')?>">Trainings List</a></li>
+                                        <li><a href="<?php echo base_url('training/index')?>">Add Trainings</a></li>
                                         <li hidden><a href="<?php echo base_url('training/scheduleTraining')?>">Scheduled Training</a></li>
                                         <li><a href="<?php echo base_url('training/addSchedule')?>">Schedule New Training</a></li>
                                         <li><a href="<?php echo base_url('training/trainingSchedules')?>">All Schedules</a></li>
                                         <li hidden><a href="<?php echo base_url('training/viewAttendance')?>">Attendance List</a></li>
+                                        <li><a href="<?php echo base_url('training/verifyAttendance')?>">Verify Attendance</a></li>
                                     </ul>
                                 </li>
                                 <li class="submenu">
@@ -44,7 +44,7 @@
                                         class="menu-arrow"></span></a>
                                         <ul>
                                             <li><a href="<?php echo base_url('cooperatives/index')?>">Cooperatives</a></li>
-                                            <li><a href="<?php echo base_url('cooperatives/clusters')?>">CBT's</a></li>                                          
+                                            <li><a href="<?php echo base_url('cooperatives/clusters')?>">Clusters</a></li>                                          
                                         </ul>
                                     </li>
                                     

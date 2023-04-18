@@ -15,7 +15,7 @@ class Member_model extends CI_Model{
         $this->db->from('members');
         $this->db->join('cooperatives', 'cooperatives.id = members.cooperative_id');
         $this->db->join('users', 'users.id = members.created_by');
-        $this->db->join('training_clusters', 'training_clusters.cooperative_id = members.cooperative_id');
+        $this->db->join('training_clusters', 'training_clusters.id = members.cluster_id');
         $this->db->order_by('members.id', 'DESC');
         $query = $this->db->get();
         return $query->result_array();
@@ -26,11 +26,12 @@ class Member_model extends CI_Model{
         return $query;
     }
 
-    public function get_memberByID($member_id)
+    public function get_memberByID($id)
     {
-        $this->db->where('members.member_id', $member_id);
-        $this->db->select('members.*, groups.id as groupID, groups.group_name')->from('members');
-        $this->db->join('groups', 'groups.id = members.group_id');
+        $this->db->where('members.id_number', $id);
+        $this->db->select('members.*,cooperatives.id as copID, cooperatives.cooperative_name, training_clusters.id as clusterID, training_clusters.cluster_name')->from('members');
+        $this->db->join('cooperatives', 'cooperatives.id = members.cooperative_id');
+        $this->db->join('training_clusters', 'training_clusters.id = members.cluster_id');
         $query = $this->db->get();
         return $query->row_array();
     }

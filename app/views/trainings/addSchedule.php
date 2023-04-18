@@ -40,7 +40,7 @@
                                 </div>
                                 <div class="col-12 col-sm-6">
                                     <div class="form-group local-forms">
-                                        <label>Training Cluster <span class="login-danger">*</span></label>
+                                        <label>Training CBT/Cluster <span class="login-danger">*</span></label>
                                         <select class="form-control select" id="cluster_id" name="cluster_id" required>
                                             <option value="">--Choose--</option>     
                                         </select>

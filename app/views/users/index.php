@@ -41,7 +41,6 @@
                                 <thead class="student-thread">
                                     <tr>
                                 <th>#</th>
-                                <th>Profile</th>
                                 <th>Name </th>
                                 <th>Email </th>
                                 <th>Contact</th>

@@ -65,6 +65,22 @@ class Training_model extends CI_Model{
         return $this->db->get()->result();
     }
 
+    public function get_clusterMembers($training_id, $cooperative_id, $cluster_id)
+    {
+         $this->db->where([
+             //'training_schedules.id' => $training_id,
+             'members.cooperative_id' => $cooperative_id,
+             'members.cluster_id' => $cluster_id,
+         ])->select('members.*, cooperatives.id as copID, cooperatives.cooperative_name,  training_clusters.id as clusterID, training_clusters.cluster_name')
+         ->from('members')
+           ->join('cooperatives', 'cooperatives.id = members.cooperative_id')
+           ->join('training_clusters', 'training_clusters.id = members.cluster_id')
+           // ->join('training_schedules', 'training_schedules.cooperative_id = cooperatives.id')
+           // ->join('training_schedules', 'training_schedules.cluster_id = training_clusters.id')
+           ->order_by('members.first_name', 'ASC');
+         return $this->db->get()->result();
+    }
+
     public function get_trainingAttendance($training_id, $cooperative_id, $cluster_id)
     {
         $this->db->where([
@@ -78,7 +94,7 @@ class Training_model extends CI_Model{
           ->join('cooperatives', 'cooperatives.id = trainings_attendance.cooperative_id')
           ->join('training_clusters', 'training_clusters.id = members.cluster_id')
           ->join('training_schedules', 'training_schedules.training_id = trainings_attendance.training_id')
-          ->order_by('trainings_attendance.id', 'DESC');
+          ->order_by('members.first_name', 'ASC');
         return $this->db->get()->result();
     }
 
@@ -117,6 +133,39 @@ class Training_model extends CI_Model{
         $this->db->update('training_schedules', array('attendance_status' => $data));
 
     }
+
+    // public function update_verificationStatus($data, $training, $cooperative, $cluster, $verified_by)
+    // {
+    //     $this->db->where('cooperative_id', $cooperative);
+    //     $this->db->where('cluster_id', $cluster);
+    //     $this->db->where('training_id', $training);
+    //     $this->db->update('training_schedules', array('verified' => $data, 'verified_by' => $verified_by));
+    // }
+    public function update_verificationStatus($data, $training, $cooperative, $cluster, $verifiedBy)
+{
+    // Validate input parameters
+    if (!is_numeric($cooperative) || !is_numeric($cluster) || !is_numeric($training)) {
+        throw new InvalidArgumentException('Invalid input parameters');
+    }
+
+    // Prepare the update query
+    $this->db->where('cooperative_id', $cooperative);
+    $this->db->where('cluster_id', $cluster);
+    $this->db->where('training_id', $training);
+    $updateData = array(
+        'verified' => $data,
+        'verified_by' => $verifiedBy
+    );
+    $this->db->update('training_schedules', $updateData);
+
+    // Check for errors and return the result
+    // if ($this->db->error()) {
+    //     throw new RuntimeException('Database update failed');
+    // } else {
+    //     return true;
+    // }
+}
+
 
     public function count_members($id)
     {
