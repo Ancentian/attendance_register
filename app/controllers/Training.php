@@ -62,8 +62,8 @@ class Training extends BASE_Controller
         $training_id = $this->uri->segment(3);
         $cooperative_id = $this->uri->segment(4);
         $cluster_id = $this->uri->segment(5);
-        //var_dump($training_id);die;
-        $this->data['members'] = $this->training_model->get_cooperativeMembers($training_id, $cooperative_id, $cluster_id);
+        $this->data['members'] = $this->training_model->get_clusterMembers($training_id, $cooperative_id, $cluster_id);
+        $this->data['training_id'] = $training_id;
         $this->data['pg_title'] = "Mark Attendance";
         $this->data['page_content'] = 'trainings/markAttendance';
         $this->load->view('layout/template', $this->data);
@@ -96,12 +96,23 @@ class Training extends BASE_Controller
     }
 
 
-    function viewAttendance()
+    function verifyAttendance()
     {
-        // $this->data['members'] = $this->training_model->get_cooperativeMembers($training_id, $cooperative_id);
-        // $this->data['pg_title'] = "Mark Attendance";
-        // $this->data['page_content'] = 'trainings/markAttendance';
-        // $this->load->view('layout/template', $this->data);
+        $this->data['schedules'] = $this->training_model->get_trainingSchedules();
+        $this->data['pg_title'] = "Home";
+        $this->data['page_content'] = 'trainings/verifyAttendance';
+        $this->load->view('layout/training', $this->data);
+    }
+
+    public function verify_trainingAttendance()
+    {
+        $training_id = $this->uri->segment(3);
+        $cooperative_id = $this->uri->segment(4);
+        $cluster_id = $this->uri->segment(5);
+        $this->data['attendance'] = $this->training_model->get_trainingAttendance($training_id, $cooperative_id, $cluster_id);
+        $this->data['pg_title'] = "Mark Attendance";
+        $this->data['page_content'] = 'trainings/verify_trainingAttendance';
+        $this->load->view('layout/template', $this->data);
     }
 
 
@@ -165,38 +176,45 @@ class Training extends BASE_Controller
          //Update Attendance Status
         $status = 1;
         $this->training_model->update_attendance($status, $training, $cooperative, $cluster);
-        $i = 0;
-        if (!empty($member) && !empty($attendance)) {
-            foreach($member as $key){
-                foreach ($attendance as $attendance_value) {
-                    $insert_data = [
-                        'training_id' => $training,
-                        'cooperative_id' => $cooperative,
-                        'member_id' => $key,
-                        'attendance_value' => $attendance_value,
-                        'marked_by' => $trainer
-                    ];
-                    if ($this->db->insert('trainings_attendance', $insert_data)) {
-                        $i++;
-                        $this->session->set_flashdata('success', 'Attendance Marked Successfully');
-                    } else {
-                        log_message('error', 'Failed to insert attendance data for member '.$key.' with value '.$attendance_value);
-                        $this->session->set_flashdata('error', 'Err! Failed Try Again');
-                    }
-                    return redirect('training/trainingSchedules');
-                }
-            }
-        }
-        
-        // $inserted = $this->db->affected_rows();
 
-        // //var_dump($inserted);die;
-        // if ($inserted > 0) {
-        //     $this->session->set_flashdata('success', 'Attendance Marked Successfully');
-        // }else{
-        //     $this->session->set_flashdata('error', 'Err! Failed Try Again');
-        // }
-        // return redirect('training/trainingSchedules');
+        $i = 0;
+
+        foreach ($member as $key) {
+            $attend = $attendance[$i];
+            $this->db->insert('trainings_attendance', ['training_id' => $training, 'cooperative_id' => $cooperative, 'member_id' => $key, 'attendance_value' => $attend, 'marked_by' => $trainer]);
+            $i++;
+        }
+
+        $inserted = $this->db->affected_rows();
+        if ($inserted > 0) {
+            $this->session->set_flashdata('success', 'Attendance Marked Successfully');
+        }else{
+            $this->session->set_flashdata('error', 'Err! Failed Try Again');
+        }
+        return redirect('training/trainingSchedules');  
+    }
+
+    public function update_attendanceVerification()
+    {
+        $forminput = $this->input->post();
+
+        $status = 1;
+        $training = $forminput['training_id'];
+        $cooperative = $forminput['cooperative_id'];
+        $cluster = $forminput['cluster_id'];
+
+        $verified_by = $this->session->userdata('user_aob')->id;
+         //Update Attendance verification Status
+        //var_dump($cluster);die;
+        $this->training_model->update_verificationStatus($status, $training, $cooperative, $cluster, $verified_by);
+
+        $inserted = $this->db->affected_rows();
+        if ($inserted > 0) {
+            $this->session->set_flashdata('success', 'Attendance Verified Successfully');
+        }else{
+            $this->session->set_flashdata('error', 'Err! Failed Try Again');
+        }
+        return redirect('training/verifyAttendance');
     }
 
     function update(){

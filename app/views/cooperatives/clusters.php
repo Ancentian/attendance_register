@@ -4,10 +4,10 @@
         <div class="page-header">
             <div class="row align-items-center">
                 <div class="col">
-                    <h3 class="page-title">CBT's</h3>
+                    <h3 class="page-title">Clusters</h3>
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="<?php echo base_url('home') ?>">Dashboard</a></li>
-                        <li class="breadcrumb-item active">CBT's</li>
+                        <li class="breadcrumb-item active">Clusters</li>
                     </ul>
                 </div>
             </div>
@@ -28,7 +28,7 @@
                         <div class="page-header">
                             <div class="row align-items-center">
                                 <div class="col">
-                                    <h3 class="page-title">CBT's</h3>
+                                    <h3 class="page-title">Clusters</h3>
                                 </div>
                                 <div class="col-auto text-end float-end ms-auto download-grp">
                                     <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCluster"><i class="fas fa-plus"></i></a>
@@ -41,7 +41,7 @@
                             <thead class="student-thread">
                                 <tr>
                                     <th>*</th>
-                                    <th>CBT</th>
+                                    <th>Clusters</th>
                                     <th>Cooperative</th>
                                     <th>Trainer</th>
                                     <th class="text-end">Action</th>
@@ -61,14 +61,14 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="standard-modalLabel">Add CBT(Cluster)</h4>
+                    <h4 class="modal-title" id="standard-modalLabel">Add Cluster</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form>
                         <div class="row">
                             <div class="col-12">
-                                <h5 class="form-title"><span>CBT Details</span></h5>
+                                <h5 class="form-title"><span>Cluster Details</span></h5>
                             </div>
                             <div class="col-12 col-sm-12">
                                     <div class="form-group local-forms">
@@ -83,7 +83,7 @@
                                 </div>
                             <div class="col-12 col-sm-12">
                                 <div class="form-group local-forms">
-                                    <label>CBT Name <span class="login-danger">*</span></label>
+                                    <label>Cluster Name <span class="login-danger">*</span></label>
                                     <input type="text" name="cluster_name" id="cluster_name" class="form-control" required>
                                 </div>
                             </div>

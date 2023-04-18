@@ -28,7 +28,7 @@
                         <div class="page-header">
                             <div class="row align-items-center">
                                 <div class="col">
-                                    <h3 class="page-title">Attendance List<?php //echo $members->training_id[0]?></h3>
+                                    <h3 class="page-title">Verify Attendance for <?php //echo $members->training_id[0]?></h3>
                                 </div>
                                 <div class="col-auto text-end float-end ms-auto download-grp">
 
@@ -38,55 +38,45 @@
                         </div>
 
                         <div class="table-responsive">
-                            <div class="mb-3">
-                              <label for="search">Search:</label>
-                              <input type="text" id="search" class="form-control" placeholder="Search By Name, ID Number">
-                          </div>
-                          <form action="<?php echo base_url('training/storeAttendance')?>" method="POST">
+                          <form action="<?php echo base_url('training/update_attendanceVerification')?>" method="POST">
+                            <!-- <input type="number" name="verified" value="1" hidden> -->
                             <table class="table  table-striped">
                                 <thead class="student-thread">
                                     <tr>
                                         <th>*</th>
-                                        <th>Name</th>
+                                        <th>Member</th>
+                                        <th>Training</th>   
+                                        <th>ID</th>
                                         <th>Cooperative</th>
-                                        <th>Cluster</th> 
-                                        <th>
-                                            <div class="form-check check-tables">
-                                                <input class="form-check-input" id="check-all" type="checkbox">
-                                            </div>
-                                        </th>  
+                                        <th>CBT</th>
+                                        <th>Attendance</th> 
+                                          
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php $i=1; foreach($members as $key) {?>
+                                    <?php $i=1; foreach($attendance as $key) {?>
                                         <tr>
                                             <td><?php echo $i; ?></td>
                                             <td><?php echo $key->first_name." ".$key->last_name?></td>
+                                            <td><?php echo $key->training_name?></td>                               
+                                            <td><?php echo $key->id_number?></td>
                                             <td><?php echo ucfirst($key->cooperative_name)?></td>
                                             <td><?php echo ucfirst($key->cluster_name)?></td>
-                                            <td hidden>
-                                                <input type="text" value="<?php echo $training_id?>" name="training_id" hidden>
-                                            </td>
-                                            <td hidden>
-                                                <input type="text" value="<?php echo $key->cooperative_id?>" name="cooperative_id" hidden>
-                                            </td>
-                                            <td hidden>
-                                                <input type="text" value="<?php echo $key->clusterID?>" name="cluster_id" hidden>
-                                            </td>
-                                            <td hidden>
-                                                <input type="text" value="<?php echo $key->id_number?>" name="member_id[]" hidden>
-                                            </td>
+                                            <td hidden><input type="text" value="<?php echo $key->training_id?>" name="training_id" hidden></td>
+                                            <td hidden><input type="text" value="<?php echo $key->cooperative_id?>" name="cooperative_id" hidden></td>
+                                            <td hidden><input type="text" value="<?php echo $key->clusterID?>" name="cluster_id" hidden></td>
                                             <td>
-                                               <div class="form-check check-tables">
-                                                    <input class="form-check-input check-item" type="checkbox" value="1" name="attendance_value[]">
-                                                    <!-- <input type="hidden" name="attendance_value[]" value="0"> -->
-                                                </div>
+                                                <?php if ($key->attendance_value == 1): ?>
+                                                <input class="form-check-input check-item" type="checkbox" checked disabled>
+                                                <?php else: ?>
+                                                    <input class="form-check-input check-item" type="checkbox" disabled>
+                                                <?php endif; ?>
                                             </td>
                                         </tr>
                                     <?php $i++; }?>
                                 </tbody>
                             </table>
-                            <div class="col-12 ">
+                            <div class="col-12 " >
                                 <div class="student-submit">
                                     <button type="submit" class="btn btn-primary mt-3 justify-content-center">Submit</button>
                                 </div>

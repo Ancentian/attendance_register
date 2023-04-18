@@ -55,10 +55,10 @@ class Members extends BASE_Controller
 
     function editMember()
     {
-        $member_id = $this->input->get('memberID');
-        $this->data['roles'] = $this->management->get_roles();
-        $this->data['groups'] = $this->group->get_groups();
-        $this->data['member'] = $this->member->get_memberByID($member_id);
+        $id = $this->input->get('memberID');
+        $this->data['member'] = $this->member->get_memberByID($id);
+        $this->data['cooperatives'] = $this->cooperative->get_cooperatives();
+        $this->data['clusters'] = $this->cooperative->get_clusters();
         $this->data['pg_title'] = "Home";
         $this->data['page_content'] = 'members/editMember';
         $this->load->view('layout/member', $this->data);

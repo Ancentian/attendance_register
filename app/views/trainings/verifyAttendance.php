@@ -4,10 +4,10 @@
         <div class="page-header">
             <div class="row align-items-center">
                 <div class="col">
-                    <h3 class="page-title">Members</h3>
+                    <h3 class="page-title">Attendance</h3>
                     <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="<?php echo base_url('home/index')?>">Dashboard</a></li>
-                        <li class="breadcrumb-item active">Members</li>
+                        <li class="breadcrumb-item"><a href="<?php echo base_url('home')?>">Dashboard</a></li>
+                        <li class="breadcrumb-item active">Attendance</li>
                     </ul>
                 </div>
             </div>
@@ -22,14 +22,14 @@
             <div class="col-md-12">
                 <div class="card bg-white">
                     <div class="card-header">
-                        <h5 class="card-title">Training Schedules</h5>
+                        <h5 class="card-title">Attendance Verification</h5>
                         
                     </div>
 
                     <div class="card-body">
                         <ul class="nav nav-tabs nav-tabs-top nav-justified">
-                            <li class="nav-item"><a class="nav-link active" href="#top-justified-tab1" data-bs-toggle="tab">All Schedules</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#top-justified-tab2" data-bs-toggle="tab">Mark Attendance</a></li>
+                            <li class="nav-item"><a class="nav-link active" href="#top-justified-tab1" data-bs-toggle="tab">Verified Attendance</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#top-justified-tab2" data-bs-toggle="tab">Un-Verified</a></li>
                             <!-- <li class="nav-item"><a class="nav-link" href="#top-justified-tab3" data-bs-toggle="tab">Messages</a></li> -->
                         </ul>
                         <div class="tab-content">
@@ -45,6 +45,7 @@
                                                 <th>Training Date</th>
                                                 <th>Created By</th>
                                                 <th>Status</th>
+                                                <th>Verified By</th>
                                                 <th class="text-end">Action</th>
                                             </tr>
                                         </thead>
@@ -57,11 +58,12 @@
                                                     <td><?php echo $key->cluster_name?></td> 
                                                     <td><?php echo $key->training_date?></td>
                                                     <td><?php echo $key->first_name." ".$key->last_name?></td>
-                                                    <?php if($key->attendance_status == 0) {?>
+                                                    <?php if($key->verified == 0) {?>
                                                     <td><span class="badge rounded-pill bg-warning">Pending</span></td>
-                                                    <?php } elseif ($key->attendance_status == 1) { ?>
-                                                    <td><span class="badge rounded-pill bg-success">Marked</span></td>
+                                                    <?php } elseif ($key->verified == 1) { ?>
+                                                    <td><span class="badge rounded-pill bg-success">Verified</span></td>
                                                     <?php }?>
+                                                    <td><?php echo $key->first_name." ".$key->last_name?></td>
                                                     <td class="text-end">
                                                         <div class="actions">
                                                             <!-- Link that triggers the modal -->
@@ -91,25 +93,34 @@
                                                     <th>CBT</th>
                                                     <th>Training Date</th>
                                                     <th>Created By</th>
+                                                    <th>Status</th>
                                                     <!-- <th class="text-end" hidden>Action</th> -->
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <?php $i=1; foreach($schedules as $key) {?>
-                                                    <?php if($key->attendance_status ==0) {?>
+                                                    <?php if($key->verified == 0) {?>
                                                     <tr>
                                                         <td><?php echo $i; ?></td>
-                                                        <td> <a href="<?php echo base_url('training/mark_trainingAttendance/'.$key->training_id."/".$key->cooperative_id."/".$key->clusterID) ?>" style="color: blue;" onmouseover="this.style.color='red';" onmouseout="this.style.color='blue';"><?php echo strtoupper($key->training_name) ?></a>
+                                                        <?php if($key->attendance_status == 0) {?>
+                                                        <td><?php echo strtoupper($key->training_name) ?></td>
+                                                        <?php } elseif ($key->attendance_status == 1) { ?>
+                                                        <td> 
+                                                            <a href="<?php echo base_url('training/verify_trainingAttendance/'.$key->training_id."/".$key->cooperative_id."/".$key->clusterID) ?>" title="Verify" style="color: blue;" onmouseover="this.style.color='red';" onmouseout="this.style.color='blue';"><?php echo strtoupper($key->training_name) ?></a>
                                                         </td>
+                                                        <?php }?>
                                                         <td><?php echo $key->cooperative_name?></td>
                                                         <td><?php echo $key->cluster_name?></td> 
                                                         <td><?php echo $key->training_date?></td>
                                                         <td><?php echo $key->first_name." ".$key->last_name?></td>
+                                                        <?php if($key->attendance_status == 0) {?>
+                                                        <td><span class="badge rounded-pill bg-danger">Not Marked</span></td>
+                                                        <?php } elseif ($key->attendance_status == 1) { ?>
+                                                        <td><span class="badge rounded-pill bg-success">Marked</span></td>
+                                                        <?php }?>
                                                     </tr>
                                                     <?php $i++; }?>
                                                     <?php }?>
-
-
                                                 </tbody>
                                             </table>
                                         </div>
