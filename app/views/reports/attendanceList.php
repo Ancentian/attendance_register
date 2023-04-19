@@ -5,10 +5,10 @@
         <div class="page-header">
             <div class="row align-items-center">
                 <div class="col">
-                    <h3 class="page-title">Attendance List</h3>
+                    <h3 class="page-title">Attendance Report</h3>
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="<?php echo base_url('home/index')?>">Dashboard</a></li>
-                        <li class="breadcrumb-item active">Attendance List</li>
+                        <li class="breadcrumb-item active">Attendance Report</li>
                     </ul>
                 </div>
             </div>
@@ -28,7 +28,7 @@
                         <div class="page-header">
                             <div class="row align-items-center">
                                 <div class="col">
-                                    <h3 class="page-title">Attendance List For <span><?php echo $name; ?></span></h3>
+                                    <h3 class="page-title">Attendance Report For <span><?php echo $name; ?> </span>Training</h3>
                                 </div>
                                 <div class="col-auto text-end float-end ms-auto download-grp">
 
@@ -39,7 +39,7 @@
 
                         <div class="table-responsive">
                           <form action="<?php echo base_url('training/storeAttendance')?>" method="POST">
-                            <table class="table border-0 star-student table-hover table-center mb-0 datatable table-striped">
+                            <table class="table border-0 star-student table-hover table-center mb-0  table-striped" id="example">
                                 <thead class="student-thread">
                                     <tr>
                                         <th>*</th>
@@ -65,7 +65,7 @@
                                             <!-- <td><?php //echo $key->attendance_value?></td> -->
                                             <td>
                                                 <?php if ($key->attendance_value == 1): ?>
-                                                <input class="form-check-input check-item" type="checkbox" checked disabled>
+                                                <input class="form-check-input check-item" value="1" type="checkbox" checked disabled>
                                                 <?php else: ?>
                                                     <input class="form-check-input check-item" type="checkbox" disabled>
                                                 <?php endif; ?>

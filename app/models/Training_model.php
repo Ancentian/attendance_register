@@ -11,7 +11,7 @@ class Training_model extends CI_Model{
     */
     public function get_trainings()
     {
-        $training = $this->db->get('trainings');
+        $training = $this->db->order_by('id', 'desc')->get('trainings');
         return $training->result();
     }
 
@@ -39,7 +39,7 @@ class Training_model extends CI_Model{
 
     public function get_trainingSchedules()
     {
-        $this->db->select('training_schedules.*, trainings.id as trainID, trainings.training_name, cooperatives.id as coID, cooperatives.cooperative_name, users.id, users.first_name, users.last_name, training_clusters.id as clusterID, training_clusters.cluster_name');
+        $this->db->select('training_schedules.*, trainings.id as trainID, trainings.training_name, cooperatives.id as coID, cooperatives.cooperative_name, users.id as userID, users.first_name, users.last_name, training_clusters.id as clusterID, training_clusters.cluster_name');
         $this->db->from('training_schedules');
         $this->db->join('trainings', 'trainings.id = training_schedules.training_id');
         $this->db->join('cooperatives', 'cooperatives.id = training_schedules.cooperative_id');
@@ -83,6 +83,7 @@ class Training_model extends CI_Model{
 
     public function get_trainingAttendance($training_id, $cooperative_id, $cluster_id)
     {
+        
         $this->db->where([
             'trainings_attendance.training_id' => $training_id,
             'trainings_attendance.cooperative_id' => $cooperative_id,
@@ -95,6 +96,34 @@ class Training_model extends CI_Model{
           ->join('training_clusters', 'training_clusters.id = members.cluster_id')
           ->join('training_schedules', 'training_schedules.training_id = trainings_attendance.training_id')
           ->order_by('members.first_name', 'ASC');
+        return $this->db->get()->result();
+    }
+
+    public function attendance_forMembers($schedule_id)
+    {
+        $this->db->where('trainings_attendance.schedule_id', $schedule_id);
+        $this->db->select('trainings_attendance.*, training_schedules.id, training_schedules.cooperative_id, training_schedules.cluster_id, training_clusters.id as clusterID, training_clusters.cluster_name, trainings.id as trainID, trainings.training_name, cooperatives.id as copID, cooperatives.cooperative_name,members.first_name, members.last_name, members.id_number, members.cluster_id, members.cooperative_id');
+        $this->db->from('trainings_attendance');
+        $this->db->join('training_schedules', 'training_schedules.id = trainings_attendance.schedule_id');
+        $this->db->join('training_clusters', 'training_clusters.id = training_schedules.cluster_id');
+        $this->db->join('trainings', 'trainings.id = trainings_attendance.training_id');
+        $this->db->join('cooperatives', 'cooperatives.id = trainings_attendance.cooperative_id');
+        $this->db->join('members', 'members.id_number = trainings_attendance.member_id', 'left');
+        $this->db->order_by('members.first_name', 'ASC');
+        return $this->db->get()->result();
+    }
+
+    public function get_trainingAttendanceBySchedule($schedule_id)
+    { 
+        $this->db->where('trainings_attendance.schedule_id', $schedule_id);
+        $this->db->select('trainings_attendance.*, training_schedules.id, training_schedules.cooperative_id, training_schedules.cluster_id, training_clusters.id as clusterID, training_clusters.cluster_name, trainings.id as trainID, trainings.training_name, cooperatives.id as copID, cooperatives.cooperative_name,members.first_name, members.last_name, members.id_number, members.cluster_id, members.cooperative_id');
+        $this->db->from('trainings_attendance');
+        $this->db->join('training_schedules', 'training_schedules.id = trainings_attendance.schedule_id');
+        $this->db->join('training_clusters', 'training_clusters.id = training_schedules.cluster_id');
+        $this->db->join('trainings', 'trainings.id = trainings_attendance.training_id');
+        $this->db->join('cooperatives', 'cooperatives.id = trainings_attendance.cooperative_id');
+        $this->db->join('members', 'members.id_number = trainings_attendance.member_id', 'left');
+        $this->db->order_by('members.first_name', 'ASC');
         return $this->db->get()->result();
     }
 

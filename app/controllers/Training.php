@@ -62,8 +62,11 @@ class Training extends BASE_Controller
         $training_id = $this->uri->segment(3);
         $cooperative_id = $this->uri->segment(4);
         $cluster_id = $this->uri->segment(5);
+        $schedule_id = $this->uri->segment(6);
+        //var_dump($schedule_id);die;
         $this->data['members'] = $this->training_model->get_clusterMembers($training_id, $cooperative_id, $cluster_id);
         $this->data['training_id'] = $training_id;
+        $this->data['schedule_id'] = $schedule_id;
         $this->data['pg_title'] = "Mark Attendance";
         $this->data['page_content'] = 'trainings/markAttendance';
         $this->load->view('layout/template', $this->data);
@@ -71,10 +74,13 @@ class Training extends BASE_Controller
 
     public function trainingAttendance()
     {
-        $training_id = $this->uri->segment(3);
+        $schedule_id = $this->uri->segment(3);
         $cooperative_id = $this->uri->segment(4);
         $cluster_id = $this->uri->segment(5);
-        $this->data['attendance'] = $this->training_model->get_trainingAttendance($training_id, $cooperative_id, $cluster_id);
+        $training_id = $this->uri->segment(6);
+        $this->data['attendance'] = $this->training_model->get_trainingAttendanceBySchedule($schedule_id);
+        $training = $this->training_model->get_trainingByName($training_id);
+        $this->data['name'] = $training['training_name'];
         $this->data['pg_title'] = "Mark Attendance";
         $this->data['page_content'] = 'trainings/trainingAttendance';
         $this->load->view('layout/template', $this->data);
@@ -110,9 +116,12 @@ class Training extends BASE_Controller
         $cooperative_id = $this->uri->segment(4);
         $cluster_id = $this->uri->segment(5);
         $this->data['attendance'] = $this->training_model->get_trainingAttendance($training_id, $cooperative_id, $cluster_id);
-        $this->data['pg_title'] = "Mark Attendance";
+        $training = $this->training_model->get_trainingByName($training_id);
+        $this->data['name'] = $training['training_name'];
+        //var_dump($this->data['name']);die;
+        $this->data['pg_title'] = "Verify Attendance";
         $this->data['page_content'] = 'trainings/verify_trainingAttendance';
-        $this->load->view('layout/template', $this->data);
+        $this->load->view('layout/verify', $this->data);
     }
 
 
@@ -168,6 +177,7 @@ class Training extends BASE_Controller
         $forminput = $this->input->post();
 
         $training = $forminput['training_id'];
+        $schedule = $forminput['schedule_id'];
         $cooperative = $forminput['cooperative_id'];
         $cluster = $forminput['cluster_id'];
         $member = $forminput['member_id'];
@@ -181,7 +191,7 @@ class Training extends BASE_Controller
 
         foreach ($member as $key) {
             $attend = $attendance[$i];
-            $this->db->insert('trainings_attendance', ['training_id' => $training, 'cooperative_id' => $cooperative, 'member_id' => $key, 'attendance_value' => $attend, 'marked_by' => $trainer]);
+            $this->db->insert('trainings_attendance', ['training_id' => $training, 'schedule_id' => $schedule, 'cooperative_id' => $cooperative, 'member_id' => $key, 'attendance_value' => $attend, 'marked_by' => $trainer]);
             $i++;
         }
 
@@ -203,6 +213,8 @@ class Training extends BASE_Controller
         $cooperative = $forminput['cooperative_id'];
         $cluster = $forminput['cluster_id'];
 
+
+        var_dump($cluster);die;
         $verified_by = $this->session->userdata('user_aob')->id;
          //Update Attendance verification Status
         //var_dump($cluster);die;

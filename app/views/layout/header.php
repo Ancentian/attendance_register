@@ -22,6 +22,10 @@
     <link rel="stylesheet" href="<?php echo base_url() ?>res/assets/plugins/select2/css/select2.min.css">
 
     <link rel="stylesheet" href="<?php echo base_url() ?>res/assets/plugins/toastr/toatr.css">
+
+    <!-- Export Data -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.3.6/css/buttons.dataTables.min.css">
     
     <link rel="stylesheet" href="<?php echo base_url() ?>res/assets/css/style.css">
 </head>

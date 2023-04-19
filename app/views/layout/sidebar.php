@@ -17,7 +17,7 @@
                                 <a href="#"><i class="fas fa-graduation-cap"></i> <span> Training</span> <span
                                     class="menu-arrow"></span></a>
                                     <ul>
-                                        <li><a href="<?php echo base_url('training/index')?>">Add Trainings</a></li>
+                                        <li><a href="<?php echo base_url('training/index')?>">Add New Trainings</a></li>
                                         <li hidden><a href="<?php echo base_url('training/scheduleTraining')?>">Scheduled Training</a></li>
                                         <li><a href="<?php echo base_url('training/addSchedule')?>">Schedule New Training</a></li>
                                         <li><a href="<?php echo base_url('training/trainingSchedules')?>">All Schedules</a></li>
@@ -56,7 +56,15 @@
                                             <li><a href="<?php echo base_url('staff/index')?>">Users</a></li>
                                             <li><a href="<?php echo base_url('management/roles')?>">Roles</a></li>
                                         </ul>
-                                    </li>                        
+                                    </li> 
+                                    <li class="submenu">
+                                        <a href="#"><i class="fas fa-shield-alt"></i> <span> Reports </span> <span
+                                            class="menu-arrow"></span></a>
+                                        <ul>
+                                            <li><a href="<?php echo base_url('reports/attendanceReports')?>">Attendance Reports</a></li>
+                                            <li><a href="<?php echo base_url('management/roles')?>">Trainings</a></li>
+                                        </ul>
+                                    </li>                       
                                     </ul>
                                 </div>
                             </div>
