@@ -5,27 +5,32 @@ class Reports extends BASE_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->model('reports_model', 'reports');
-        $this->load->model('cattle_model', 'cattle');
-        $this->load->model('inventory_model', 'inventory');
-        $this->load->model('management_model', 'management');
-        $this->load->model('send_message');
+        $this->load->model('training_model');
     }
 
     /*
        Display all records in page
     */
-    public function cattleReports()
+    public function attendanceReports()
     {
-        $sdate = "";$edate = "";
-        $forminput = $this->input->get();
-        $sdate = $forminput['sdate'];
-        $edate = $forminput['edate'];
-        //var_dump($forminput);die;
-        $this->data['cattle'] = $this->cattle->fetch_cattleTags($sdate, $edate);
-        $this->data['pg_title'] = "Request Report";
-        $this->data['page_content'] = 'reports/cattleReports';
+        $this->data['schedules'] = $this->training_model->get_trainingSchedules();
+        $this->data['pg_title'] = "Home";
+        $this->data['page_content'] = 'reports/attendanceReport';
+        $this->load->view('layout/training', $this->data);   
+    }
+
+    public function attendanceList()
+    {
+        $schedule_id = $this->uri->segment(3);
+        $cooperative_id = $this->uri->segment(4);
+        $cluster_id = $this->uri->segment(5);
+        $training_id = $this->uri->segment(6);
+        $this->data['attendance'] = $this->training_model->get_trainingAttendanceBySchedule($schedule_id);
+        $training = $this->training_model->get_trainingByName($training_id);
+        $this->data['name'] = $training['training_name'];
+        $this->data['pg_title'] = "Mark Attendance";
+        $this->data['page_content'] = 'reports/attendanceList';
         $this->load->view('layout/template', $this->data);
-        
     }
 
     public function feedReports()

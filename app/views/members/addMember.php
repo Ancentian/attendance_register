@@ -43,7 +43,7 @@
                                 <div class="col-12 col-sm-4">
                                     <div class="form-group local-forms">
                                         <label>ID/Passport No. <span class="login-danger">*</span></label>
-                                        <input type="text" class="form-control" name="id_number" placeholder="Enter ID/Passport No." required>
+                                        <input type="text" class="form-control" name="id_number" placeholder="Enter ID/Passport No." required minlength="7" maxlength="8">
                                     </div>
                                 </div>
                                 <div class="col-12 col-sm-4">
@@ -91,7 +91,7 @@
                                 <div class="col-12 col-sm-4">
                                     <div class="form-group local-forms">
                                         <label>Phone Number <span class="login-danger">*</span></label>
-                                        <input type="text" class="form-control" name="phone_number" placeholder="Enter Phone">
+                                        <input type="text" class="form-control" name="phone_number" placeholder="Enter Phone" minlength="10" maxlength="13">
                                     </div>
                                 </div>
                                 <div class="col-12 col-sm-4">
@@ -143,7 +143,7 @@
 
 <script type="text/javascript">
     $(document).ready(function(){
-       
+     
         $('#cooperative_id').change(function(){ 
             var id=$(this).val();
                 //console.log(id);
@@ -154,7 +154,7 @@
                 async : true,
                 dataType : 'json',
                 success: function(data){
-                   
+                 
                     var html = '';
                     var i;
                     for(i=0; i<data.length; i++){

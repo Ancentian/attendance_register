@@ -68,6 +68,9 @@
                                                 <input type="text" value="<?php echo $training_id?>" name="training_id" hidden>
                                             </td>
                                             <td hidden>
+                                                <input type="text" value="<?php echo $schedule_id?>" name="schedule_id" hidden>
+                                            </td>
+                                            <td hidden>
                                                 <input type="text" value="<?php echo $key->cooperative_id?>" name="cooperative_id" hidden>
                                             </td>
                                             <td hidden>

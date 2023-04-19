@@ -77,6 +77,58 @@
         </div>
     </div>
 </div>
+<script src="<?php echo base_url() ?>res/assets/js/jquery-3.6.0.min.js"></script>
+<script src="<?php echo base_url() ?>res/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="<?php echo base_url() ?>res/assets/js/feather.min.js"></script>
+<script src="<?php echo base_url() ?>res/assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<script src="<?php echo base_url() ?>res/assets/plugins/apexchart/apexcharts.min.js"></script>
+<script src="<?php echo base_url() ?>res/assets/plugins/apexchart/chart-data.js"></script>
+<script src="<?php echo base_url() ?>res/assets/plugins/select2/js/select2.min.js"></script>
+
+<script src="<?php echo base_url() ?>res/assets/plugins/moment/moment.min.js"></script>
+<script src="<?php echo base_url() ?>res/assets/js/bootstrap-datetimepicker.min.js"></script>
+
+<script src="<?php echo base_url() ?>res/assets/plugins/datatables/datatables.min.js"></script>
+
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script> -->
+
+<script src="<?php echo base_url() ?>res/assets/js/script.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+       
+        $('#cooperative_id').change(function(){ 
+            var id=$(this).val();
+                //console.log(id);
+            $.ajax({
+                url : "<?php echo site_url('members/get_cooperative_clusters');?>",
+                method : "POST",
+                data : {id: id},
+                async : true,
+                dataType : 'json',
+                success: function(data){
+                   
+                    var html = '';
+                    var i;
+                    for(i=0; i<data.length; i++){
+                        html += '<option value='+data[i].id+'>'+data[i].cluster_name+'</option>';
+                    }
+                    $('#cluster_id').html(html);
+                    
+                }
+            });
+            return false;
+        }); 
+        
+    });
+</script>
+
+</body>
+
+</html>
+
+
+
 
 
 
