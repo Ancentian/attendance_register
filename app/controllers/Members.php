@@ -78,7 +78,7 @@ class Members extends BASE_Controller
 
     function clusterMembers($cluster_id)
     {
-        //$cooperative_id = $this->uri->segment(4);
+        $cluster_id = $this->uri->segment(3);
         //var_dump($cluster_id);die;
         $this->data['members'] = $this->member->get_clusterMembers($cluster_id);
         $this->data['pg_title'] = "Members";
@@ -120,6 +120,19 @@ class Members extends BASE_Controller
             $this->session->set_flashdata('success', 'Member Added Successfully');
             redirect(base_url('members/index'));
         }
+    }
+
+    public function updateMember($id_number)
+    {
+        $forminput = $this->input->post();
+        //var_dump($id_number);die;
+        $inserted = $this->member->update_member($id_number, $forminput);
+        if ($inserted > 0) {
+            $this->session->set_flashdata('success', 'Member Updated successfully');
+        } else {
+            $this->session->set_flashdata('error', 'Failed, please try again');
+        }
+        redirect(base_url('members/index'));
     }
 
 

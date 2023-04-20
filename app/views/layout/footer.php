@@ -42,7 +42,15 @@
           ],
           "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
 
-    } );
+    });
+
+    $('#members').DataTable( {
+        dom: 'lBfrtip',
+          buttons: [
+               'excel',  'csv', 'pdf', 'print', 'copy',
+          ],
+          "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+    });
 
   // Check all checkboxes
     $('#check-all').click(function() {

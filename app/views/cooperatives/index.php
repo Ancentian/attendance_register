@@ -77,11 +77,20 @@
                                 </div>
                             </div>
                             <div class="col-12 col-sm-12">
-                                <div class="form-group local-forms">
-                                    <label>Location<span class="login-danger">*</span></label>
-                                    <input type="text" name="location" id="location" class="form-control" required>
+                                    <div class="form-group local-forms">
+                                        <label>County <span class="login-danger">*</span></label>
+                                        <select class="form-control select" name="location" required>
+                                            <option value="">--Choose--</option>
+                                            <option value="bungoma">BUNGOMA</option>
+                                            <option value="embu">EMBU</option>
+                                            <option value="kiambu">KIAMBU</option>
+                                            <option value="machakos">MACHAKOS</option>
+                                            <option value="muranga">MURANGA</option>
+                                            <option value="meru">MERU</option>
+                                            <option value="nyeri">NYERI</option>
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">

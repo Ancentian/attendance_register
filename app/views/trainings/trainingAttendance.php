@@ -7,7 +7,7 @@
                 <div class="col">
                     <h3 class="page-title">Attendance List</h3>
                     <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="<?php echo base_url('home/index')?>">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="<?php echo base_url('home')?>">Dashboard</a></li>
                         <li class="breadcrumb-item active">Attendance List</li>
                     </ul>
                 </div>

@@ -22,7 +22,7 @@
             <div class="col-sm-12">
                 <div class="card">
                     <div class="card-body">
-                        <form action="<?php echo base_url('members/storeMember')?>" method="POST" enctype="multipart/form-data">
+                        <form action="<?php echo base_url('members/updateMember/'.$member['id_number'])?>" method="POST" enctype="multipart/form-data">
                             <div class="row">
                                 <div class="col-12">
                                     <h5 class="form-title"><span>Basic Details</span></h5>
@@ -51,9 +51,13 @@
                                         <label>County <span class="login-danger">*</span></label>
                                         <select class="form-control select" name="county" required>
                                             <option value="">--Choose--</option>
-                                            <option value="meru">Meru</option>
-                                            <option value="embu">Embu</option>
-                                            <option value="tharaka">Tharaka</option>
+                                            <option value="bungoma">BUNGOMA</option>
+                                            <option value="embu">EMBU</option>
+                                            <option value="kiambu">KIAMBU</option>
+                                            <option value="machakos">MACHAKOS</option>
+                                            <option value="muranga">MURANGA</option>
+                                            <option value="meru">MERU</option>
+                                            <option value="nyeri">NYERI</option>
                                         </select>
                                     </div>
                                 </div>
@@ -61,9 +65,8 @@
                                     <div class="form-group local-forms">
                                         <label>Cooperative <span class="login-danger">*</span></label>
                                         <select class="form-control select" id="cooperative_id" name="cooperative_id" required>
-                                            <option value="">--Choose--</option>
                                             <?php foreach($cooperatives as $key) {?>
-                                                <option value="<?php echo $key->id;?>"><?php echo $key->cooperative_name;?></option>
+                                                <option value="<?php echo $key->id?>"<?php if($member['cooperative_id'] == $key->id) { echo  "selected"; }?>><?php echo $key->cooperative_name?></option>
                                             <?php }?>
                                         </select>
                                     </div>
@@ -82,27 +85,26 @@
                                         <label>Gender <span class="login-danger">*</span></label>
                                         <select class="form-control select" name="gender" required>
                                             <option value="">--Choose--</option>
-                                            <option value="male">Male</option>
-                                            <option value="female">Female</option>
-                                            <option value="others">Others</option>
+                                            <option value="male"<?php if($member['gender'] == 'male') { echo  "selected"; }?>>Male</option>
+                                            <option value="female"<?php if($member['gender'] == 'female') { echo  "selected"; }?>>Female</option>
+                                            <option value="others"<?php if($member['gender'] == 'others') { echo  "selected"; }?>>Others</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-12 col-sm-4">
                                     <div class="form-group local-forms">
                                         <label>Phone Number <span class="login-danger">*</span></label>
-                                        <input type="text" class="form-control" name="phone_number" placeholder="Enter Phone">
+                                        <input type="text" class="form-control" name="phone_number" value="<?php echo $member['phone_number']?>" minlength="10" maxlength="10">
                                     </div>
                                 </div>
                                 <div class="col-12 col-sm-4">
                                     <div class="form-group local-forms">
                                         <label>Age <span class="login-danger">*</span></label>
                                         <select class="form-control select" name="age" required>
-                                            <option value="">--Choose Range--</option>
-                                            <option value="18-25">18-25</option>
-                                            <option value="26-35">26-35</option>
-                                            <option value="36-50">36-50</option>
-                                            <option value="50+">50+</option>
+                                            <option value="18-25"<?php if($member['age'] == '18-25') { echo  "selected"; }?>>18-25</option>
+                                            <option value="26-35"<?php if($member['age'] == '26-35') { echo  "selected"; }?>>26-35</option>
+                                            <option value="36-50"<?php if($member['age'] == '36-50') { echo  "selected"; }?>>36-50</option>
+                                            <option value="50+"<?php if($member['age'] == '50+') { echo  "selected"; }?>>50+</option>
                                         </select>
                                     </div>
                                 </div>
@@ -146,7 +148,7 @@
        
         $('#cooperative_id').change(function(){ 
             var id=$(this).val();
-                //console.log(id);
+                console.log(id);
             $.ajax({
                 url : "<?php echo site_url('members/get_cooperative_clusters');?>",
                 method : "POST",

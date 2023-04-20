@@ -37,15 +37,17 @@
                         </div>
 
                         <div class="table-responsive">
-                            <table class="table border-0 star-student table-hover table-center mb-0 datatable table-striped" id="members">
+                            <table class="table border-0 star-student table-hover table-center mb-0  table-striped" id="members">
                                 <thead class="student-thread">
                                     <tr>
                                         <th>*</th>
                                         <th>Name</th>
+                                        <th>ID</th>
                                         <th>Cooperative</th>
                                         <th>Cluster</th>
                                         <th>Gender</th>
                                         <th>Mobile No.</th>
+                                        <th>Age</th>
                                         <th>Created By</th>
                                         <th class="text-end">Action</th>
                                     </tr>
@@ -55,20 +57,20 @@
                                     <tr>
                                     <td><?php echo $i; ?></td>
                                     <td><?php echo $key['first_name']." ".$key['last_name']?></td>
-                                    <!-- <td><?php //echo ucfirst($key['county'])?></td> -->
+                                    <td><?php echo $key['id_number']?></td>
                                     <td><?php echo ucfirst($key['cooperative_name'])?></td>
-                                    <td><a href="<?php echo base_url('members/clusterMembers/'.$key['clusterID']."/".$key['copID'])?>" style="color: blue;" onmouseover="this.style.color='red';" onmouseout="this.style.color='blue';"><?php echo ucfirst($key['cluster_name'])?></a></td>
+                                    <td><a href="<?php echo base_url('members/clusterMembers/'.$key['clusterID'])?>" style="color: blue;" onmouseover="this.style.color='red';" onmouseout="this.style.color='blue';"><?php echo ucfirst($key['cluster_name'])?></a></td>
                                     <td><?php echo ucfirst($key['gender'])?></td>
                                     <td><?php echo $key['phone_number']?></td>  
-                                
+                                    <td><?php echo $key['age']?></td>
                                     <td><?php echo $key['fname']." ".$key['lname']?></td>
                                     <td class="text-end">
                                         <div class="actions">
-                                            <a href="<?php echo base_url('members/memberProfile?memberID='. $key['id_number'])?>" class="btn btn-sm bg-success-light me-2">
+                                            <a href="<?php echo base_url('members/memberProfile?memberID='. $key['id_number'])?>" title="View Member" class="btn btn-sm bg-success-light me-2">
                                                 <i class="feather-eye"></i>
                                             </a>
                                             
-                                            <a href="<?php echo base_url('members/editMember?memberID='. $key['id_number'])?>" class="btn btn-sm bg-danger-light">
+                                            <a href="<?php echo base_url('members/editMember?memberID='. $key['id_number'])?>" title="Edit Member" class="btn btn-sm bg-danger-light">
                                                 <i class="feather-edit"></i>
                                             </a>
 
