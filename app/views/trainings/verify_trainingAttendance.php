@@ -38,7 +38,7 @@
                         </div>
 
                         <div class="table-responsive">
-                          <form id="my-form">
+                          <form action="<?php echo base_url('training/update_attendanceVerification')?>" method="POST">
                             <!-- <input type="number" name="verified" value="1" hidden> -->
                             <table class="table  table-striped">
                                 <thead class="student-thread">
@@ -48,7 +48,7 @@
                                         <th>Training</th>   
                                         <th>ID</th>
                                         <th>Cooperative</th>
-                                        <th>CBT</th>
+                                        <th>Cluster</th>
                                         <th>Attendance</th> 
                                           
                                     </tr>
@@ -78,7 +78,7 @@
                             </table>
                             <div class="col-12 " >
                                 <div class="student-submit">
-                                    <button type="submit" id="verify" class="btn btn-primary mt-3 justify-content-center">Verify</button>
+                                    <button type="submit"  class="btn btn-primary mt-3 justify-content-center">Verify</button>
                                 </div>
                             </div>
                         </form>

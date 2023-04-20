@@ -91,7 +91,7 @@
                                 <div class="col-12 col-sm-4">
                                     <div class="form-group local-forms">
                                         <label>Phone Number <span class="login-danger">*</span></label>
-                                        <input type="text" class="form-control" name="phone_number" placeholder="Enter Phone" minlength="10" maxlength="13">
+                                        <input type="text" class="form-control" name="phone_number" placeholder="Enter Phone" minlength="10" maxlength="10">
                                     </div>
                                 </div>
                                 <div class="col-12 col-sm-4">

@@ -44,7 +44,7 @@ class Member_model extends CI_Model{
         $this->db->from('members');
         $this->db->join('cooperatives', 'cooperatives.id = members.cooperative_id');
         $this->db->join('users', 'users.id = members.created_by');
-        $this->db->join('training_clusters', 'training_clusters.id = members.cooperative_id');
+        $this->db->join('training_clusters', 'training_clusters.id = members.cluster_id');
         $this->db->order_by('members.id', 'DESC');
         $query = $this->db->get();
         return $query->result_array();
@@ -73,6 +73,13 @@ class Member_model extends CI_Model{
         $this->db->select()->from('users');
         $query = $this->db->get();
         return $query->result()[0];
+    }
+
+    function update_member($id_number, $data)
+    {
+        $this->db->where('id_number', $id_number);
+        $this->db->update('members', $data);
+        return $this->db->affected_rows();
     }
 
     /*

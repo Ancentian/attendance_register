@@ -41,7 +41,7 @@
                                                 <th>*</th>
                                                 <th>Training</th>
                                                 <th>Cooperative</th>
-                                                <th>CBT</th>
+                                                <th>Cluster</th>
                                                 <th>Training Date</th>
                                                 <th>Created By</th>
                                                 <th>Status</th>
@@ -90,7 +90,7 @@
                                                     <th>*</th>
                                                     <th>Training</th>
                                                     <th>Cooperative</th>
-                                                    <th>CBT</th>
+                                                    <th>Cluster</th>
                                                     <th>Training Date</th>
                                                     <th>Created By</th>
                                                     <th>Status</th>
@@ -105,8 +105,8 @@
                                                         <?php if($key->attendance_status == 0) {?>
                                                         <td><?php echo strtoupper($key->training_name) ?></td>
                                                         <?php } elseif ($key->attendance_status == 1) { ?>
-                                                        <td> 
-                                                            <a href="<?php echo base_url('training/verify_trainingAttendance/'.$key->training_id."/".$key->cooperative_id."/".$key->clusterID) ?>" title="Verify" style="color: blue;" onmouseover="this.style.color='red';" onmouseout="this.style.color='blue';"><?php echo strtoupper($key->training_name) ?></a>
+                                                        
+                                                        <td> <a href="<?php echo base_url('training/verify_trainingAttendance/'.$key->training_id."/".$key->cooperative_id."/".$key->clusterID."/".$key->id) ?>" style="color: blue;" onmouseover="this.style.color='red';" onmouseout="this.style.color='blue';"><?php echo strtoupper($key->training_name) ?></a>
                                                         </td>
                                                         <?php }?>
                                                         <td><?php echo $key->cooperative_name?></td>

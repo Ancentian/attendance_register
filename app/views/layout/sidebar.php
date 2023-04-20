@@ -40,7 +40,7 @@
                                     <span>Management</span>
                                 </li>
                                 <li class="submenu">
-                                    <a href="#"><i class="fas fa-cog"></i> <span> Settings</span> <span
+                                    <a href="#"><i class="fas fa-cog"></i> <span>Management</span> <span
                                         class="menu-arrow"></span></a>
                                         <ul>
                                             <li><a href="<?php echo base_url('cooperatives/index')?>">Cooperatives</a></li>

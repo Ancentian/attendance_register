@@ -67,7 +67,7 @@
                     <div class="card-body">
                         <div class="db-widgets d-flex justify-content-between align-items-center">
                             <div class="db-info">
-                                <h6>CBT's</h6>
+                                <h6>Clusters</h6>
                                 <h3><?php echo $this->home_model->count_clusters() ?></h3>
                             </div>
                             <div class="db-icon">

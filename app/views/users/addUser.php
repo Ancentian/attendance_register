@@ -93,6 +93,8 @@
                                             <option value="">--Choose--</option>
                                             <option value="admin">Admin</option>
                                             <option value="trainer">Trainer</option>
+                                            <option value="field_officer">Field Officer</option>
+                                            <option value="field_coordinator">Field Coordinator</option>
                                             <option value="finance">Finance</option>
                                         </select>
                                     </div>
