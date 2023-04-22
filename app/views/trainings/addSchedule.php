@@ -76,9 +76,11 @@
                                         <select class="form-control select" name="facilitator" required>
                                             <option value="">--Select--</option>
                                             <?php foreach($trainers as $key) {?>
-                                            <option value="<?php echo $key->id ?>"><?php echo $key->first_name." ".$key->last_name ?></option>
+                                                
+                                                    <option value="<?php echo $key->id ?>"><?php echo $key->first_name." ".$key->last_name ?></option>
+                                                    
                                             <?php }?>
-                                            <option value="others">Others</option>
+                                            
                                         </select>
                                     </div>
                                 </div>

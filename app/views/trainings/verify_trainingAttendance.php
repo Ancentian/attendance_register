@@ -65,6 +65,7 @@
                                             <td hidden><input type="text" id="trainer_id" value="<?php echo $key->training_id?>" name="training_id" hidden></td>
                                             <td hidden><input type="text" value="<?php echo $key->cooperative_id?>" name="cooperative_id" hidden></td>
                                             <td hidden><input type="text" value="<?php echo $key->clusterID?>" name="cluster_id" hidden></td>
+                                            <td hidden><input type="text" value="<?php echo $schedule_id ?>" name="schedule_id" hidden></td>
                                             <td>
                                                 <?php if ($key->attendance_value == 1): ?>
                                                 <input class="form-check-input check-item" type="checkbox" checked disabled>

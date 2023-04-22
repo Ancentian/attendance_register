@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="page-sub-header">
-                        <h3 class="page-title">Welcome <?php echo $this->session->userdata('user_aob')->last_name?>!</h3>
+                        <h3 class="page-title">Welcome <?php echo $this->session->userdata('user_aob')->first_name?>!</h3>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="<?php echo base_url('home') ?>">Home</a></li>
                             <li class="breadcrumb-item active">Admin</li>

@@ -85,7 +85,7 @@
                                             <option value="embu">EMBU</option>
                                             <option value="kiambu">KIAMBU</option>
                                             <option value="machakos">MACHAKOS</option>
-                                            <option value="muranga">MURANGA</option>
+                                            <option value="murang'a">MURANG'A</option>
                                             <option value="meru">MERU</option>
                                             <option value="nyeri">NYERI</option>
                                         </select>

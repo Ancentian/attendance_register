@@ -4,10 +4,10 @@
         <div class="page-header">
             <div class="row align-items-center">
                 <div class="col">
-                    <h3 class="page-title">Add User</h3>
+                    <h3 class="page-title">Edit User</h3>
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="<?php echo base_url('home')?>">Dashboard</a></li>
-                        <li class="breadcrumb-item active">Add User</li>
+                        <li class="breadcrumb-item active">Edit User</li>
                     </ul>
                 </div>
             </div>
@@ -22,7 +22,7 @@
             <div class="col-sm-12">
                 <div class="card">
                     <div class="card-body">
-                        <form action="<?php echo base_url('staff/store'); ?>" method="POST" enctype="multipart/form-data">
+                        <form action="<?php echo base_url('staff/updateUser/'.$user['id']); ?>" method="POST" enctype="multipart/form-data">
                             <div class="row">
                                 <div class="col-12">
                                     <h5 class="form-title"><span>Basic Details</span></h5>
@@ -30,42 +30,42 @@
                                 <div class="col-12 col-sm-4">
                                     <div class="form-group local-forms" required>
                                         <label>First Name <span class="login-danger">*</span></label>
-                                        <input type="text" class="form-control" name="first_name" placeholder="Enter First Name" required>
+                                        <input type="text" class="form-control" name="first_name" value="<?php echo $user['first_name']?>" required>
                                     </div>
                                 </div>
                                 
                                 <div class="col-12 col-sm-4">
                                     <div class="form-group local-forms">
                                         <label>Last Name <span class="login-danger">*</span></label>
-                                        <input type="text" class="form-control" name="last_name" placeholder="Enter Last Name" required>
+                                        <input type="text" class="form-control" name="last_name" value="<?php echo $user['last_name']?>" required>
                                     </div>
                                 </div>
                                 <div class="col-12 col-sm-4">
                                     <div class="form-group local-forms">
                                         <label>Email<span class="login-danger">*</span></label>
-                                        <input type="email" class="form-control" name="email" placeholder="Enter Email." required>
+                                        <input type="email" class="form-control" name="email" value="<?php echo $user['email']?>">
                                     </div>
                                 </div>
                                 <div class="col-12 col-sm-4">
                                     <div class="form-group local-forms">
                                         <label>Contact<span class="login-danger">*</span></label>
-                                        <input type="text" class="form-control" name="phone_number" placeholder="Enter Phone Number." required>
+                                        <input type="text" class="form-control" name="phone_number" value="<?php echo $user['phone_number']?>" required>
                                     </div>
                                 </div>
-                                <input type="hidden" name="password" value="<?php echo $this->auth_model->generate_hash('pass12345');?>">
                                 <div class="col-12 col-sm-4">
                                     <div class="form-group local-forms">
                                         <label>County <span class="login-danger">*</span></label>
                                         <select class="form-control select" name="county" required>
                                             <option value="">--Choose--</option>
-                                            <option value="bungoma">BUNGOMA</option>
-                                            <option value="embu">EMBU</option>
-                                            <option value="kiambu">KIAMBU</option>
-                                            <option value="machakos">MACHAKOS</option>
-                                            <option value="murang'a">MURANG'A</option>
-                                            <option value="meru">MERU</option>
-                                            <option value="nyeri">NYERI</option>
-                                            <option value="others">OTHERS</option>
+                                            
+                                            <option value="bungoma" <?php if($user['county'] == 'bungoma') { echo  "selected"; }?>>BUNGOMA</option>
+                                            <option value="embu"<?php if($user['county'] == 'embu') { echo  "selected"; }?>>EMBU</option>
+                                            <option value="kiambu"<?php if($user['county'] == 'kiambu') { echo  "selected"; }?>>KIAMBU</option>
+                                            <option value="machakos"<?php if($user['county'] == 'machakos') { echo  "selected"; }?>>MACHAKOS</option>
+                                            <option value="murang'a"<?php if($user['county'] == "murang'a") { echo  "selected"; }?>>MURANG'A</option>
+                                            <option value="meru"<?php if($user['county'] == 'meru') { echo  "selected"; }?>>MERU</option>
+                                            <option value="nyeri"<?php if($user['county'] == 'nyeri') { echo  "selected"; }?>>NYERI</option>
+                                            <option value="others"<?php if($user['county'] == 'others') { echo  "selected"; }?>>OTHERS</option>
                                         </select>
                                     </div>
                                 </div>
@@ -75,7 +75,7 @@
                                         <select class="form-control select" id="cooperative_id" name="cooperative_id">
                                             <option value="">--Choose--</option>
                                             <?php foreach($cooperatives as $key) {?>
-                                                <option value="<?php echo $key->id;?>"><?php echo $key->cooperative_name;?></option>
+                                                <option value="<?php echo $key->id?>"<?php if($user['cooperative_id'] == $key->id) { echo  "selected"; }?>><?php echo $key->cooperative_name?></option>
                                             <?php }?>
                                         </select>
                                     </div>
@@ -85,28 +85,43 @@
                                         <label>Project <span class="login-danger">*</span></label>
                                         <select class="form-control select" name="project" required>
                                             <option value="">--Choose--</option>
-                                            <option value="arabica">Arabica</option>
-                                            <option value="imarishaIV">Imarisha IV</option>
-                                            <option value="tharaka">Tharaka</option>
+                                            <option value="arabica"<?php if($user['project'] == 'arabica') { echo  "selected"; }?> >Arabica</option>
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-12 col-sm-6">
+                                <?php if ($this->session->userdata('user_aob')->role_id == 'trainer' || $this->session->userdata('user_aob')->role_id == 'field_officer' || $this->session->userdata('user_aob')->role_id == 'field_coordinator' || $this->session->userdata('user_aob')->role_id == 'finance') { ?>
+                                    <div class="col-12 col-sm-6">
                                     <div class="form-group local-forms">
                                         <label>Role<span class="login-danger">*</span></label>
-                                        <select class="form-control select" name="role_id" required>
+                                        <select class="form-control select" name="role_id" required disabled>
                                             <option value="">--Choose--</option>
-                                            <option value="admin">Admin</option>
-                                            <option value="trainer">Trainer/CBT</option>
-                                            <option value="field_officer">Field Officer</option>
-                                            <option value="field_coordinator">Field Coordinator</option>
-                                            <option value="finance">Finance</option>
+                                            <option value="admin" <?php if($user['role_id'] == 'admin') { echo  "selected"; }?>>Admin</option>
+                                            <option value="trainer"<?php if($user['role_id'] == 'trainer') { echo  "selected"; }?>>Trainer/CBT</option>
+                                            <option value="field_officer"<?php if($user['role_id'] == 'field_officer') { echo  "selected"; }?>>Field Officer</option>
+                                            <option value="field_coordinator"<?php if($user['role_id'] == 'field_coordinator') { echo  "selected"; }?>>Field Coordinator</option>
+                                            <option value="finance"<?php if($user['role_id'] == 'finance') { echo  "selected"; }?>>Finance</option>
                                         </select>
                                     </div>
-                                </div> 
+                                </div>  
+                                <?php } elseif ($this->session->userdata('user_aob')->role_id == 'admin') { ?>
+                                    <div class="col-12 col-sm-6">
+                                    <div class="form-group local-forms">
+                                        <label>Role<span class="login-danger">*</span></label>
+                                        <select class="form-control select" name="role_id" required >
+                                            <option value="">--Choose--</option>
+                                            <option value="admin" <?php if($user['role_id'] == 'admin') { echo  "selected"; }?>>Admin</option>
+                                            <option value="trainer"<?php if($user['role_id'] == 'trainer') { echo  "selected"; }?>>Trainer/CBT</option>
+                                            <option value="field_officer"<?php if($user['role_id'] == 'field_officer') { echo  "selected"; }?>>Field Officer</option>
+                                            <option value="field_coordinator"<?php if($user['role_id'] == 'field_coordinator') { echo  "selected"; }?>>Field Coordinator</option>
+                                            <option value="finance"<?php if($user['role_id'] == 'finance') { echo  "selected"; }?>>Finance</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <?php }?>
+                                 
 
                             </div>                                             
-                            <div class="col-12 ">
+                            <div class="col-12 " hidden>
                                 <div class="student-submit">
                                     <button type="submit" class="btn btn-primary justify-content-center">Submit</button>
                                 </div>

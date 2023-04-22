@@ -33,6 +33,15 @@ class Reports extends BASE_Controller {
         $this->load->view('layout/template', $this->data);
     }
 
+    public function trainingReports()
+    {
+
+        $this->data['schedules'] = $this->reports->get_trainingSchedules();
+        $this->data['pg_title'] = "Trainings Report";
+        $this->data['page_content'] = 'reports/trainingsReport';
+        $this->load->view('layout/training', $this->data);
+    }
+
     public function feedReports()
     {
         $sdate = "";$edate = "";

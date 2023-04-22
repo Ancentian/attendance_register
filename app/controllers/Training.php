@@ -119,7 +119,7 @@ class Training extends BASE_Controller
         $this->data['attendance'] = $this->training_model->get_trainingAttendanceBySchedule($schedule_id);
         $training = $this->training_model->get_trainingByName($training_id);
         $this->data['name'] = $training['training_name'];
-        //var_dump($this->data['name']);die;
+        $this->data['schedule_id'] = $schedule_id;
         $this->data['pg_title'] = "Verify Attendance";
         $this->data['page_content'] = 'trainings/verify_trainingAttendance';
         $this->load->view('layout/verify', $this->data);
@@ -184,6 +184,7 @@ class Training extends BASE_Controller
         $member = $forminput['member_id'];
         $attendance = $forminput['attendance_value'];
         $trainer = $this->session->userdata('user_aob')->id;
+        //var_dump($attendance);die;
          //Update Attendance Status
         $status = 1;
         $this->training_model->update_attendance($status, $training, $cooperative, $cluster);
@@ -210,16 +211,12 @@ class Training extends BASE_Controller
         $forminput = $this->input->post();
 
         $status = 1;
-        $training = $forminput['training_id'];
-        $cooperative = $forminput['cooperative_id'];
-        $cluster = $forminput['cluster_id'];
 
+        $schedule = $forminput['schedule_id'];
 
-        //var_dump($cluster);die;
         $verified_by = $this->session->userdata('user_aob')->id;
          //Update Attendance verification Status
-        //var_dump($cluster);die;
-        $this->training_model->update_verificationStatus($status, $training, $cooperative, $cluster, $verified_by);
+        $this->training_model->update_verificationStatus($status, $schedule, $verified_by);
 
         $inserted = $this->db->affected_rows();
         if ($inserted > 0) {

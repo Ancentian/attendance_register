@@ -63,12 +63,12 @@
                                 </div>
                             </form>
 
-                            <div class="login-or">
+                            <div class="login-or" hidden>
                                 <span class="or-line"></span>
                                 <span class="span-or">or</span>
                             </div>
 
-                            <div class="social-login">
+                            <div class="social-login" hidden>
                                 <a href="#"><i class="fab fa-google-plus-g"></i></a>
                                 <a href="#"><i class="fab fa-facebook-f"></i></a>
                                 <a href="#"><i class="fab fa-twitter"></i></a>

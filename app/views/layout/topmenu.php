@@ -2,10 +2,10 @@
 
             <div class="header-left">
                 <a href="<?php echo base_url('home')?>" class="logo">
-                    <img src="<?php echo base_url() ?>res/assets/img/logo.png" alt="Logo">
+                    <img src="<?php echo base_url() ?>res/assets/img/avsi.jpg" alt="Logo">
                 </a>
-                <a href="index.html" class="logo logo-small">
-                    <img src="<?php echo base_url() ?>res/assets/img/logo-small.png" alt="Logo" width="30" height="30">
+                <a href="<?php echo base_url('home')?>" class="logo logo-small">
+                    <img src="<?php echo base_url() ?>res/assets/img/avsi.jpg" alt="Logo" width="30" height="30">
                 </a>
             </div>
             <div class="menu-toggle">
@@ -33,7 +33,7 @@
                                 alt="Soeng Souy">
                             <div class="user-text">
                                 <h6><?php echo $this->session->userdata('user_aob')->first_name?> <?php echo $this->session->userdata('user_aob')->last_name?></h6>
-                                <p class="text-muted mb-0">Administrator</p>
+                                <p class="text-muted mb-0"><?php echo ucfirst($this->session->userdata('user_aob')->role_id);?></p>
                             </div>
                         </span>
                     </a>
@@ -45,11 +45,11 @@
                             </div>
                             <div class="user-text">
                                 <h6><?php echo $this->session->userdata('user_aob')->first_name?> <?php echo $this->session->userdata('user_aob')->last_name?></h6>
-                                <p class="text-muted mb-0">Administrator</p>
+                                <!-- <p class="text-muted mb-0">Administrator</p> -->
                             </div>
                         </div>
                         <a class="dropdown-item" href="#">My Profile</a>
-                        <a class="dropdown-item" href="#">Inbox</a>
+                        <a class="dropdown-item" href="#">Change Password</a>
                         <a class="dropdown-item" href="<?php echo base_url();?>auth/logout">Logout</a>
                     </div>
                 </li>
