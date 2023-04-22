@@ -25,7 +25,8 @@ class Training_model extends CI_Model{
 
     public function get_trainers()
     {
-        $trainers = $this->db->get('users');
+        $role_id = 'trainer';
+        $trainers = $this->db->get_where('users', array('role_id' => $role_id));
         return $trainers->result();
     }
 
@@ -45,6 +46,7 @@ class Training_model extends CI_Model{
         $this->db->join('cooperatives', 'cooperatives.id = training_schedules.cooperative_id');
         $this->db->join('users', 'users.id = training_schedules.created_by');
         $this->db->join('training_clusters', 'training_clusters.id = training_schedules.cluster_id');
+        $this->db->order_by('training_schedules.id', 'DESC');
         $training = $this->db->get();
         return $training->result();
     }
@@ -170,30 +172,15 @@ class Training_model extends CI_Model{
     //     $this->db->where('training_id', $training);
     //     $this->db->update('training_schedules', array('verified' => $data, 'verified_by' => $verified_by));
     // }
-    public function update_verificationStatus($data, $training, $cooperative, $cluster, $verifiedBy)
-{
-    // Validate input parameters
-    if (!is_numeric($cooperative) || !is_numeric($cluster) || !is_numeric($training)) {
-        throw new InvalidArgumentException('Invalid input parameters');
+    public function update_verificationStatus($data, $schedule, $verifiedBy)
+    {
+        $this->db->where('id', $schedule);
+        $updateData = array(
+            'verified' => $data,
+            'verified_by' => $verifiedBy
+        );
+        $this->db->update('training_schedules', $updateData);
     }
-
-    // Prepare the update query
-    $this->db->where('cooperative_id', $cooperative);
-    $this->db->where('cluster_id', $cluster);
-    $this->db->where('training_id', $training);
-    $updateData = array(
-        'verified' => $data,
-        'verified_by' => $verifiedBy
-    );
-    $this->db->update('training_schedules', $updateData);
-
-    // Check for errors and return the result
-    // if ($this->db->error()) {
-    //     throw new RuntimeException('Database update failed');
-    // } else {
-    //     return true;
-    // }
-}
 
 
     public function count_members($id)

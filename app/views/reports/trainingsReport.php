@@ -4,10 +4,10 @@
         <div class="page-header">
             <div class="row align-items-center">
                 <div class="col">
-                    <h3 class="page-title">Members</h3>
+                    <h3 class="page-title">Trainings Report</h3>
                     <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="<?php echo base_url('home/index')?>">Dashboard</a></li>
-                        <li class="breadcrumb-item active">Members</li>
+                        <li class="breadcrumb-item"><a href="<?php echo base_url('home')?>">Dashboard</a></li>
+                        <li class="breadcrumb-item active">Trainings Report</li>
                     </ul>
                 </div>
             </div>
@@ -22,16 +22,11 @@
             <div class="col-md-12">
                 <div class="card bg-white">
                     <div class="card-header">
-                        <h5 class="card-title">Training Schedules</h5>
+                        <h5 class="card-title">All Training Reports</h5>
                         
                     </div>
 
                     <div class="card-body">
-                        <ul class="nav nav-tabs nav-tabs-top nav-justified">
-                            <li class="nav-item"><a class="nav-link active" href="#top-justified-tab1" data-bs-toggle="tab">All Schedules</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#top-justified-tab2" data-bs-toggle="tab">Mark Attendance</a></li>
-                            <!-- <li class="nav-item"><a class="nav-link" href="#top-justified-tab3" data-bs-toggle="tab">Messages</a></li> -->
-                        </ul>
                         <div class="tab-content">
                             <div class="tab-pane show active" id="top-justified-tab1">
                                 <div class="table-responsive">
@@ -45,25 +40,34 @@
                                                 <th>Cluster</th>
                                                 <th>Training Date</th>
                                                 <th>Created By</th>
+                                                <th>Verified By</th>
                                                 <th>Status</th>
                                                 <th class="text-end">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php $i=1; foreach($schedules as $key) { if($key->facilitator == $this->session->userdata('user_aob')->id || $this->session->userdata('user_aob')->role_id == 'admin') {?>
+                                            <?php $i=1; foreach($schedules as $key) {?>
                                                 <tr>
                                                     <td><?php echo $i; ?></td>
-                                                    <!-- <td><?php //echo $key->id; ?></td> -->
                                                     <?php if($key->attendance_status == 1) { ?>
-                                                        <td> <a href="<?php echo base_url('training/trainingAttendance/'.$key->id."/".$key->cooperative_id."/".$key->clusterID."/".$key->training_id) ?>" title="View Attendance" style="color: blue;" onmouseover="this.style.color='red';" onmouseout="this.style.color='blue';"><?php echo strtoupper($key->training_name) ?></a>
+                                                        <td> <a href="<?php echo base_url('reports/attendanceList/'.$key->id."/".$key->cooperative_id."/".$key->clusterID."/".$key->training_id) ?>" title="View Attendance" style="color: blue;" onmouseover="this.style.color='red';" onmouseout="this.style.color='blue';"><?php echo strtoupper($key->training_name) ?></a>
                                                         </td>
                                                     <?php } elseif ($key->attendance_status == 0) { ?>
                                                         <td><?php echo strtoupper($key->training_name) ?></td>
                                                     <?php } ?>
-                                                    <td><?php echo $this->session->userdata('user_aob')->id?></td>
+                                                    <td><?php echo $key->cooperative_name?></td>
                                                     <td><?php echo $key->cluster_name?></td> 
                                                     <td><?php echo $key->training_date?></td>
                                                     <td><?php echo $key->first_name." ".$key->last_name?></td>
+                                                    <td><?php 
+                                                            $this->db->where('id', $key->verified_by);
+                                                            $this->db->select('first_name, last_name')->from('users');
+                                                            $query = $this->db->get();
+                                                            $user = $query->row_array(); 
+                                                            //var_dump($user)
+                                                            echo $user['first_name']." ".$user['last_name'];
+                                                        ?>
+                                                    </td>
                                                     <?php if($key->attendance_status == 0) {?>
                                                     <td><span class="badge rounded-pill bg-warning">Pending</span></td>
                                                     <?php } elseif ($key->attendance_status == 1) { ?>
@@ -72,7 +76,7 @@
                                                     <td class="text-end">
                                                         <div class="actions">
                                                             <!-- Link that triggers the modal -->
-                                                            <a href="<?php echo base_url('training/attendanceList/'.$key->training_id."/".$key->cooperative_id."/".$key->clusterID)?>" title="View Attendance" class="btn btn-sm bg-success-light me-2" id="attendanceLink" hidden><i class="feather-eye"></i></a>
+                                                            <a href="<?php echo base_url('reports/attendanceList/'.$key->training_id."/".$key->cooperative_id."/".$key->clusterID)?>" title="View Attendance" class="btn btn-sm bg-success-light me-2" id="attendanceLink" hidden><i class="feather-eye"></i></a>
                                                             <?php if($key->attendance_status == 1) {?>
                                                             <a href="<?php echo base_url('training/trainingAttendance/'.$key->id."/".$key->cooperative_id."/".$key->clusterID."/".$key->training_id) ?>" title="View Attendance" class="btn btn-sm bg-danger-light">
                                                                 <i class="feather-eye"></i>
@@ -81,47 +85,13 @@
                                                         </div>
                                                     </td>
                                                 </tr>
-                                                <?php $i++; } }?>
+                                                <?php $i++; }?>
 
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
-                                <div class="tab-pane" id="top-justified-tab2">
-                                    <div class="table-responsive">
-                                        <table class="table border-0 star-student table-hover table-center mb-0 table-striped" id="train">
-                                            <thead class="student-thread">
-                                                <tr>
-                                                    <th>*</th>
-                                                    <th>Training</th>
-                                                    <th>Cooperative</th>
-                                                    <th>Cluster</th>
-                                                    <th>Training Date</th>
-                                                    <th>Created By</th>
-                                                    <!-- <th class="text-end" hidden>Action</th> -->
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php $i=1; foreach($schedules as $key) { if($key->facilitator == $this->session->userdata('user_aob')->id || $this->session->userdata('user_aob')->role_id == 'admin') {?>
-                                                    <?php if($key->attendance_status ==0) {?>
-                                                    <tr>
-                                                        <td><?php echo $i; ?></td>
-                                                        <td> <a href="<?php echo base_url('training/mark_trainingAttendance/'.$key->training_id."/".$key->cooperative_id."/".$key->clusterID."/".$key->id) ?>" style="color: blue;" onmouseover="this.style.color='red';" onmouseout="this.style.color='blue';"><?php echo strtoupper($key->training_name) ?></a>
-                                                        </td>
-                                                        <td><?php echo $key->cooperative_name?></td>
-                                                        <td><?php echo $key->cluster_name?></td> 
-                                                        <td><?php echo $key->training_date?></td>
-                                                        <td><?php echo $key->first_name." ".$key->last_name?></td>
-                                                    </tr>
-                                                    <?php $i++; }?>
-                                                    <?php } }?>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                    <!-- <div class="tab-pane" id="top-justified-tab3">
-                                        Tab content 3
-                                    </div> -->
+
                                 </div>
                             </div>
                         </div>
@@ -286,4 +256,3 @@ error: function() {
 </script>
 </body>
 </html>
-

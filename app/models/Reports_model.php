@@ -10,16 +10,25 @@ class Reports_model extends CI_Model{
     /*
         Get all the records from the database
     */
-    public function get_allUsages()
+    public function get_trainingSchedules()
     {
-        $this->db->select('products_usage.id as prodUsID,products_usage.product_id, SUM(products_usage.qty) as usedQty, products.unit_cost, products_usage.created_at, products.id as prodID, products.productName,products.productType,paddocks.id as paddockID, paddocks.paddockName');
-        $this->db->from('products_usage');
-        $this->db->join('products', 'products.id = products_usage.product_id');
-        $this->db->join('paddocks', 'paddocks.id = products_usage.paddock_id');
-        $this->db->group_by('products_usage.product_id');
-        $this->db->order_by('products_usage.qty', 'DESC');
+        $this->db->select('training_schedules.*, trainings.id as trainID, trainings.training_name, cooperatives.id as coID, cooperatives.cooperative_name, users.id as userID, users.first_name, users.last_name, training_clusters.id as clusterID, training_clusters.cluster_name');
+        $this->db->from('training_schedules');
+        $this->db->join('trainings', 'trainings.id = training_schedules.training_id');
+        $this->db->join('cooperatives', 'cooperatives.id = training_schedules.cooperative_id');
+        $this->db->join('users', 'users.id = training_schedules.created_by');
+        $this->db->join('training_clusters', 'training_clusters.id = training_schedules.cluster_id');
+        $this->db->order_by('training_schedules.id', 'DESC');
+        $training = $this->db->get();
+        return $training->result();
+    }
+
+    public function get_verifiedByID($id)
+    {
+        $this->db->where('id', $id);
+        $this->db->select('first_name')->from('users');
         $query = $this->db->get();
-        return $query->result_array();
+        $first_name = $query->row_array();
     }
 
     public function get_productUsageByID($id, $sdate, $edate)

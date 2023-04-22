@@ -47,9 +47,19 @@ class Staff extends BASE_Controller
     function editUser(int $id)
     {
         $this->data['user'] = $this->staff_model->fetch_userById($id);
+        $this->data['cooperatives'] = $this->cooperative->get_cooperatives();
         $this->data['pg_title'] = "Edit User";
         $this->data['page_content'] = 'users/editUser';
-        $this->load->view('layout/template', $this->data);
+        $this->load->view('layout/member', $this->data);
+    }
+
+    function showUser(int $id)
+    {
+        $this->data['user'] = $this->staff_model->fetch_userById($id);
+        $this->data['cooperatives'] = $this->cooperative->get_cooperatives();
+        $this->data['pg_title'] = "Edit User";
+        $this->data['page_content'] = 'users/showUser';
+        $this->load->view('layout/member', $this->data);
     }
 
     public function store()
@@ -71,9 +81,9 @@ class Staff extends BASE_Controller
 
         $inserted = $this->staff_model->update_user($id, $forminput);
         if ($inserted > 0) {
-            $this->session->set_flashdata('success-msg', 'User updated successfully');
+            $this->session->set_flashdata('success', 'User Updated Successfully');
         } else {
-            $this->session->set_flashdata('error-msg', 'Failed, please try again');
+            $this->session->set_flashdata('error', 'Failed, please try again');
         }
         redirect('staff/index');
     }
