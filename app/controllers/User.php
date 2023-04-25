@@ -69,5 +69,23 @@ class User extends BASE_Controller
 
     }
 
+    function updatePassword()
+    {
+        $forminput = $this->input->post();
+        // echo $forminput['pconfirm']."<br>".$forminput['password'];
+        // die;
+        if ($forminput['password'] != $forminput['pconfirm']) {
+            $this->session->set_flashdata('error-msg', 'Passwords do not match!');
+            redirect('user/updatePassword');
+        }
+        $inserted = $this->users_model->updatepass($forminput['password']);
+        if ($inserted > 0) {
+            $this->session->set_flashdata('success', 'Password updated successfully');
+        } else {
+            $this->session->set_flashdata('error', 'Failed, please try again');
+        }
+        redirect('users');
+    }
+
 
 }

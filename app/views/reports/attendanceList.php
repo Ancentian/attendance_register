@@ -48,8 +48,9 @@
                                         <th>Training</th>     
                                         <th>Cooperative</th>
                                         <th>Cluster</th>
-                                        <th>Attendance</th> 
-                                          
+                                        <th>Age</th>
+                                        <th>Date</th>
+                                        <th>Attendance</th>                 
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -62,7 +63,8 @@
                                             
                                             <td><?php echo ucfirst($key->cooperative_name)?></td>
                                             <td><?php echo ucfirst($key->cluster_name)?></td>
-                                            <!-- <td><?php //echo $key->attendance_value?></td> -->
+                                            <td><?php echo $key->age?></td> 
+                                            <td><?php echo date('d/m/Y', strtotime($key->created_at)) ?></td>
                                             <td>
                                                 <?php if ($key->attendance_value == 1): ?>
                                                 <input class="form-check-input check-item" value="1" type="checkbox" checked disabled>

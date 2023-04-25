@@ -31,11 +31,11 @@
                             <?php }?>
                                 <?php if ($this->session->userdata('user_aob')->role_id == 'admin' || $this->session->userdata('user_aob')->role_id == 'trainer' || $this->session->userdata('user_aob')->role_id == 'field_officer' || $this->session->userdata('user_aob')->role_id == 'field_coordinator' || $this->session->userdata('user_aob')->role_id == 'finance') { ?>
                                 <li class="submenu">
-                                    <a href="#"><i class="fas fa-chalkboard-teacher"></i> <span> Members</span> <span
+                                    <a href="#"><i class="fas fa-chalkboard-teacher"></i> <span> Farmers</span> <span
                                         class="menu-arrow"></span></a>
                                         <ul>
-                                            <li><a href="<?php echo base_url('members/index')?>">Members List</a></li>
-                                            <li><a href="<?php echo base_url('members/addMember')?>">Add Member</a></li>
+                                            <li><a href="<?php echo base_url('members/index')?>">Farmers List</a></li>
+                                            <li><a href="<?php echo base_url('members/addMember')?>">Add Farmer</a></li>
                                         </ul>
                                 </li> 
                                 <?php }?>

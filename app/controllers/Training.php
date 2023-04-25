@@ -187,7 +187,7 @@ class Training extends BASE_Controller
         //var_dump($attendance);die;
          //Update Attendance Status
         $status = 1;
-        $this->training_model->update_attendance($status, $training, $cooperative, $cluster);
+        $this->training_model->update_attendance($status, $training, $cooperative, $cluster, $schedule);
 
         $i = 0;
 

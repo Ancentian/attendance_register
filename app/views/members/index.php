@@ -4,10 +4,10 @@
         <div class="page-header">
             <div class="row align-items-center">
                 <div class="col">
-                    <h3 class="page-title">Members</h3>
+                    <h3 class="page-title">Farmers</h3>
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="<?php echo base_url('home/index')?>">Dashboard</a></li>
-                        <li class="breadcrumb-item active">Members</li>
+                        <li class="breadcrumb-item active">Farmers</li>
                     </ul>
                 </div>
             </div>
@@ -27,7 +27,7 @@
                         <div class="page-header">
                             <div class="row align-items-center">
                                 <div class="col">
-                                    <h3 class="page-title">Members</h3>
+                                    <h3 class="page-title">Farmers</h3>
                                 </div>
                                 <div class="col-auto text-end float-end ms-auto download-grp">
                                     

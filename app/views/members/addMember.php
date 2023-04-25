@@ -4,10 +4,10 @@
         <div class="page-header">
             <div class="row align-items-center">
                 <div class="col">
-                    <h3 class="page-title">Add Member</h3>
+                    <h3 class="page-title">Add Farmer</h3>
                     <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="<?php echo base_url('home') ?>">Member</a></li>
-                        <li class="breadcrumb-item active">Add Member</li>
+                        <li class="breadcrumb-item"><a href="<?php echo base_url('home') ?>">Farmer</a></li>
+                        <li class="breadcrumb-item active">Add Farmer</li>
                     </ul>
                 </div>
             </div>
@@ -51,9 +51,13 @@
                                         <label>County <span class="login-danger">*</span></label>
                                         <select class="form-control select" name="county" required>
                                             <option value="">--Choose--</option>
-                                            <option value="meru">Meru</option>
-                                            <option value="embu">Embu</option>
-                                            <option value="tharaka">Tharaka</option>
+                                            <option value="bungoma">BUNGOMA</option>
+                                            <option value="embu">EMBU</option>
+                                            <option value="kiambu">KIAMBU</option>
+                                            <option value="machakos">MACHAKOS</option>
+                                            <option value="murang'a">MURANG'A</option>
+                                            <option value="meru">MERU</option>
+                                            <option value="nyeri">NYERI</option>
                                         </select>
                                     </div>
                                 </div>

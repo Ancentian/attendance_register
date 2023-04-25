@@ -50,14 +50,14 @@
                                     <div class="form-group local-forms">
                                         <label>County <span class="login-danger">*</span></label>
                                         <select class="form-control select" name="county" required>
-                                            <option value="">--Choose--</option>
-                                            <option value="bungoma">BUNGOMA</option>
-                                            <option value="embu">EMBU</option>
-                                            <option value="kiambu">KIAMBU</option>
-                                            <option value="machakos">MACHAKOS</option>
-                                            <option value="muranga">MURANGA</option>
-                                            <option value="meru">MERU</option>
-                                            <option value="nyeri">NYERI</option>
+                                            <option value="bungoma" <?php if($user['county'] == 'bungoma') { echo  "selected"; }?>>BUNGOMA</option>
+                                            <option value="embu"<?php if($user['county'] == 'embu') { echo  "selected"; }?>>EMBU</option>
+                                            <option value="kiambu"<?php if($user['county'] == 'kiambu') { echo  "selected"; }?>>KIAMBU</option>
+                                            <option value="machakos"<?php if($user['county'] == 'machakos') { echo  "selected"; }?>>MACHAKOS</option>
+                                            <option value="murang'a"<?php if($user['county'] == "murang'a") { echo  "selected"; }?>>MURANG'A</option>
+                                            <option value="meru"<?php if($user['county'] == 'meru') { echo  "selected"; }?>>MERU</option>
+                                            <option value="nyeri"<?php if($user['county'] == 'nyeri') { echo  "selected"; }?>>NYERI</option>
+                                            <option value="others"<?php if($user['county'] == 'others') { echo  "selected"; }?>>OTHERS</option>
                                         </select>
                                     </div>
                                 </div>

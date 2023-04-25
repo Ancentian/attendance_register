@@ -60,7 +60,7 @@
                                                     <?php } elseif ($key->attendance_status == 0) { ?>
                                                         <td><?php echo strtoupper($key->training_name) ?></td>
                                                     <?php } ?>
-                                                    <td><?php echo $this->session->userdata('user_aob')->id?></td>
+                                                    <td><?php echo $key->cooperative_name ?></td>
                                                     <td><?php echo $key->cluster_name?></td> 
                                                     <td><?php echo $key->training_date?></td>
                                                     <td><?php echo $key->first_name." ".$key->last_name?></td>
