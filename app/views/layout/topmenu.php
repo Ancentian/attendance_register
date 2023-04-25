@@ -49,7 +49,7 @@
                             </div>
                         </div>
                         <a class="dropdown-item" href="#">My Profile</a>
-                        <a class="dropdown-item" href="#">Change Password</a>
+                        <a class="dropdown-item" href="<?php echo base_url('staff/updatePass')?>">Change Password</a>
                         <a class="dropdown-item" href="<?php echo base_url();?>auth/logout">Logout</a>
                     </div>
                 </li>

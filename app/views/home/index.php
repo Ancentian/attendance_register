@@ -15,6 +15,10 @@
             </div>
         </div>
 
+        <!-- Start Toastr Alert -->
+        <?php $this->load->view('alert');  ?>
+        <!-- End Toastr Alert -->
+
 
         <div class="row">
             <div class="col-xl-3 col-sm-6 col-12 d-flex">
@@ -90,8 +94,8 @@
                             </div>
                             <div class="col-6">
                                 <ul class="chart-list-out">
-                                    <li><span class="circle-blue"></span>Teacher</li>
-                                    <li><span class="circle-green"></span>Student</li>
+                                    <li><span class="circle-blue"></span>Trainings</li>
+                                    <li><span class="circle-green"></span>Farmers</li>
                                     <li class="star-menus"><a href="javascript:;"><i
                                         class="fas fa-ellipsis-v"></i></a></li>
                                     </ul>

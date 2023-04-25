@@ -26,6 +26,7 @@ class Staff extends BASE_Controller
         $this->load->model('staff_model');
         $this->load->model('auth_model');
         $this->load->model('cooperative_model', 'cooperative');
+        $this->load->model('users_model');
     }
 
     function index()
@@ -86,6 +87,33 @@ class Staff extends BASE_Controller
             $this->session->set_flashdata('error', 'Failed, please try again');
         }
         redirect('staff/index');
+    }
+
+    public function updatePass()
+    {
+        $this->data['pg_title'] = "Update Password";
+        $this->data['page_content'] = 'users/updatePassword';
+        $this->load->view('layout/member', $this->data);
+    }
+
+    function updatePassword()
+    {
+        $forminput = $this->input->post();
+
+        //var_dump($forminput);die;
+
+        if ($forminput['password'] != $forminput['pconfirm']) {
+            $this->session->set_flashdata('error', 'Passwords do not match!');
+            redirect('staff/updatePass');
+        }
+        $inserted = $this->users_model->updatepass($forminput['password']);
+        //var_dump($inserted);die;
+        if ($inserted > 0) {
+            $this->session->set_flashdata('success', 'Password updated successfully');
+        } else {
+            $this->session->set_flashdata('error', 'Failed, please try again');
+        }
+        redirect('home/index');
     }
 
     function deleteUser($id)

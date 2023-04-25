@@ -145,7 +145,7 @@
                     var rowIdx = 1;
                     for(i=0; i<data.length; i++){
                         html += '<tr>'+
-                                '<td>'+data[i].id+'</td>'+
+                                '<td>'+rowIdx+'</td>'+
                                 '<td>'+data[i].cooperative_name+'</td>'+
                                 '<td>'+data[i].location+'</td>'+
                                 '<td>'+'</td>'+
@@ -154,6 +154,7 @@
                                     '<a href="javascript:void(0);" class="btn btn-danger btn-sm training_delete" data-id="'+data[i].id+'"><i class="fa fa-trash"></i></a>'+
                                 '</td>'+
                                 '</tr>';
+                                rowIdx++;
                     }
                     $('#show_data').html(html);
                 }

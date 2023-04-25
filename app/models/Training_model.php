@@ -118,7 +118,7 @@ class Training_model extends CI_Model{
     public function get_trainingAttendanceBySchedule($schedule_id)
     { 
         $this->db->where('trainings_attendance.schedule_id', $schedule_id);
-        $this->db->select('trainings_attendance.*, training_schedules.id, training_schedules.cooperative_id, training_schedules.cluster_id, training_clusters.id as clusterID, training_clusters.cluster_name, trainings.id as trainID, trainings.training_name, cooperatives.id as copID, cooperatives.cooperative_name,members.first_name, members.last_name, members.id_number, members.cluster_id, members.cooperative_id');
+        $this->db->select('trainings_attendance.*, training_schedules.id, training_schedules.cooperative_id, training_schedules.cluster_id, training_clusters.id as clusterID, training_clusters.cluster_name, trainings.id as trainID, trainings.training_name, cooperatives.id as copID, cooperatives.cooperative_name,members.first_name, members.last_name, members.id_number, members.cluster_id, members.cooperative_id, members.age');
         $this->db->from('trainings_attendance');
         $this->db->join('training_schedules', 'training_schedules.id = trainings_attendance.schedule_id');
         $this->db->join('training_clusters', 'training_clusters.id = training_schedules.cluster_id');
@@ -156,11 +156,12 @@ class Training_model extends CI_Model{
         return $result;
     }
 
-    public function update_attendance($data, $training, $cooperative, $cluster)
+    public function update_attendance($data, $training, $cooperative, $cluster, $schedule)
     {
         $this->db->where('cooperative_id', $cooperative);
         $this->db->where('cluster_id', $cluster);
         $this->db->where('training_id', $training);
+        $this->db->where('id', $schedule);
         $this->db->update('training_schedules', array('attendance_status' => $data));
 
     }
