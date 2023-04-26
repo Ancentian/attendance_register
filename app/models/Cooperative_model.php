@@ -17,10 +17,10 @@ class Cooperative_model extends CI_Model{
 
     public function get_clusters()
     {
-        $this->db->select('training_clusters.*, cooperatives.id as copID, cooperatives.cooperative_name,users.id as uID, users.first_name, users.last_name');
+        $this->db->select('training_clusters.*, cooperatives.id as copID, cooperatives.cooperative_name,trainers.id as uID, trainers.first_name, trainers.last_name');
         $this->db->from('training_clusters');
         $this->db->join('cooperatives', 'cooperatives.id = training_clusters.cooperative_id');
-        $this->db->join('users', 'users.id = training_clusters.trainer_id');
+        $this->db->join('trainers', 'trainers.id = training_clusters.trainer_id', 'LEFT');
         $this->db->order_by('training_clusters.id', 'DESC');
         $cluster = $this->db->get();
         return $cluster->result();

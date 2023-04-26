@@ -25,9 +25,10 @@ class Training_model extends CI_Model{
 
     public function get_trainers()
     {
-        $role_id = 'trainer';
-        $trainers = $this->db->get_where('users', array('role_id' => $role_id));
-        return $trainers->result();
+        $this->db->select()->from('trainers');
+        $this->db->order_by('first_name', 'ASC');
+        $query = $this->db->get();
+        return $query->result_array();
     }
 
     public function get_trainingByName($training_id)
@@ -36,6 +37,11 @@ class Training_model extends CI_Model{
         $this->db->select()->from('trainings');
         $query = $this->db->get();
         return $query->row_array();
+    }
+
+    public function get_training_topics($training_id){
+        $query = $this->db->get_where('training_topics', array('training_id' => $training_id));
+        return $query;
     }
 
     public function get_trainingSchedules()

@@ -24,6 +24,13 @@ class Training extends BASE_Controller
         $this->load->view('layout/training', $this->data);
     }
 
+    public function addNewTraining()
+    {
+        $this->data['pg_title'] = "New Training";
+        $this->data['page_content'] = 'trainings/addNewTraining';
+        $this->load->view('layout/member', $this->data);
+    }
+
 
     function scheduleTraining()
     {
@@ -46,6 +53,12 @@ class Training extends BASE_Controller
 
     function training_data(){
         $data = $this->training_model->get_trainings();
+        echo json_encode($data);
+    }
+
+    function get_training_topics(){
+        $training_id = $this->input->post('id',TRUE);
+        $data = $this->training_model->get_training_topics($training_id)->result();
         echo json_encode($data);
     }
 
@@ -141,6 +154,34 @@ class Training extends BASE_Controller
         echo json_encode($data);
     }
 
+    function store_newTraining()
+    {
+        $forminput = $this->input->post();
+
+        $training = $forminput['training_name'];
+        $start_date = $forminput['start_date'];
+        $end_date = $forminput['end_date'];
+        $topic = $forminput['training_topic'];
+        $created_by = $this->session->userdata('user_aob')->id;
+
+        $data = array('training_name' => $training, 'start_date' => $start_date, 'end_date' => $end_date, 'created_by' => $created_by);
+
+        $this->training_model->save_training($data);
+
+        $training_id = $this->db->insert_id();
+
+        foreach($topic as $key){
+            $this->db->insert('training_topics', ['training_id' => $training_id, 'training_topic' => $key, 'created_by' => $created_by]);
+        }
+        $inserted = $this->db->affected_rows();
+        if ($inserted > 0) {
+            $this->session->set_flashdata('success', 'Training Added Successfully');
+        }else{
+            $this->session->set_flashdata('error', 'Err! Failed Try Again');
+        }
+        return redirect('training/index'); 
+    }
+
     function storeSchedule()
     {
         $forminput = $this->input->post();
@@ -155,6 +196,8 @@ class Training extends BASE_Controller
         $created_by = $this->session->userdata('user_aob')->id;
         $attendance_status = 0;
 
+        //var_dump($topic);die;
+
         $data = array('cooperative_id' => $cooperative, 'cluster_id' => $cluster, 'training_id' => $training, 'venue' => $venue, 'training_date' => $date, 'facilitator' => $facilitator, 'created_by' => $created_by, 'attendance_status' => $attendance_status);
 
         $this->training_model->save_schedule($data);
@@ -162,7 +205,7 @@ class Training extends BASE_Controller
         $schedule_id = $this->db->insert_id();
 
         foreach($topic as $key){
-            $this->db->insert('training_topics', ['schedule_id' => $schedule_id, 'training_topic' => $key, 'created_by' => $created_by]);
+            $this->db->insert('covered_topics', ['schedule_id' => $schedule_id, 'topic_id' => $key, 'created_by' => $created_by]);
         }
         $inserted = $this->db->affected_rows();
         if ($inserted > 0) {
