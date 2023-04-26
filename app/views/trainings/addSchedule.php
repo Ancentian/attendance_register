@@ -48,17 +48,6 @@
                                 </div> 
                                 <div class="col-12 col-sm-6">
                                     <div class="form-group local-forms">
-                                        <label>Training <span class="login-danger">*</span></label>
-                                        <select class="form-control select" name="training_id" required>
-                                            <option value="">--Choose--</option>
-                                            <?php foreach($trainings as $key) {?>
-                                                <option value="<?php echo $key->id;?>"><?php echo $key->training_name;?></option>
-                                            <?php }?>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-12 col-sm-6">
-                                    <div class="form-group local-forms">
                                         <label>Venue <span class="login-danger">*</span></label>
                                         <input type="text" class="form-control" name="venue" placeholder="Enter Venue">
                                     </div>
@@ -75,38 +64,33 @@
                                         <label>Facilitator <span class="login-danger">*</span></label>
                                         <select class="form-control select" name="facilitator" required>
                                             <option value="">--Select--</option>
-                                            <?php foreach($trainers as $key) {?>
-                                                
-                                                    <option value="<?php echo $key->id ?>"><?php echo $key->first_name." ".$key->last_name ?></option>
-                                                    
-                                            <?php }?>
-                                            
+                                            <?php foreach($trainers as $key) {?>                                           
+                                                <option value="<?php echo $key['id'] ?>"><?php echo $key['first_name']." ".$key['last_name'] ?></option>     
+                                            <?php }?>  
                                         </select>
                                     </div>
                                 </div>
-
-                            </div>   
-                            <div class="invoice-add-table">
-                                <h4>Training Topics</h4>
-                                <div class="table-responsive">
-                                    <table class="table table-hover table-white" id="tableTraining">
-                                        <thead>
-                                            <tr>
-                                                <th style="width: 20px">#</th>
-                                                <th class="col-md-11">Training Topic</th>  
-                                                <th> </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td><input class="form-control"style="min-width:150px" type="text" id="description" name="training_topic[]" required></td>
-                                                <td><a href="javascript:void(0)" class="text-success font-18" title="Add" id="addBtn"><i class="fa fa-plus"></i></a></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group local-forms">
+                                        <label>Training <span class="login-danger">*</span></label>
+                                        <select class="form-control select" id="training_id" name="training_id" required>
+                                            <option value="">--Choose--</option>
+                                            <?php foreach($trainings as $key) {?>
+                                                <option value="<?php echo $key->id;?>"><?php echo $key->training_name;?></option>
+                                            <?php }?>
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>                             
+                                <div class="col-12 col-sm-12">
+                                    <div class="form-group local-forms">
+                                        <label>Training Topics<span class="login-danger">*</span></label>
+                                        <select class="form-control select" multiple data-mdb-placeholder="Example placeholder" id="topic_id" name="training_topic[]"  multiple>
+                                            
+                                        </select>
+                                    </div>
+                                </div>                           
+                            </div>   
+                                                        
                             <div class="col-12 ">
                                 <div class="student-submit">
                                     <button type="submit" class="btn btn-primary justify-content-center">Submit</button>
@@ -137,58 +121,60 @@
 <script src="<?php echo base_url() ?>res/assets/plugins/datatables/datatables.min.js"></script>
 
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script> -->
+<script src="<?php echo base_url() ?>res/assets/plugins/dragula/js/dragula.min.js"></script>
+<script src="<?php echo base_url() ?>res/assets/plugins/dragula/js/drag-drop.min.js"></script>
 
 <script src="<?php echo base_url() ?>res/assets/js/script.js"></script>
 <script type="text/javascript">
-    // Start Add Multiple Shop Items
+                // Start Add Multiple Shop Items
     var rowIdx = 1;
     $("#addBtn").on("click", function ()
     {
-        // Adding a row inside the tbody.
+                    // Adding a row inside the tbody.
         $("#tableTraining tbody").append(`
             <tr id="R${++rowIdx}">
             <td class="row-index text-center"><p> ${rowIdx}</p></td>
             <td><input class="form-control" type="text" style="min-width:150px" id="description" name="training_topic[]"></td>
-
+            
             <td><a href="javascript:void(0)" class="text-danger font-18 remove" title="Remove"><i class="feather-trash"></i></a></td>
             </tr>`);
     });
     $("#tableTraining tbody").on("click", ".remove", function ()
     {
-        // Getting all the rows next to the row
-        // containing the clicked button
+                    // Getting all the rows next to the row
+                    // containing the clicked button
         var child = $(this).closest("tr").nextAll();
-        // Iterating across all the rows
-        // obtained to change the index
+                    // Iterating across all the rows
+                    // obtained to change the index
         child.each(function () {
-        // Getting <tr> id.
+                        // Getting <tr> id.
             var id = $(this).attr("id");
-
-        // Getting the <p> inside the .row-index class.
+            
+                        // Getting the <p> inside the .row-index class.
             var idx = $(this).children(".row-index").children("p");
-
-        // Gets the row number from <tr> id.
+            
+                        // Gets the row number from <tr> id.
             var dig = parseInt(id.substring(1));
-
-        // Modifying row index.
+            
+                        // Modifying row index.
             idx.html(`${dig - 1}`);
-
-        // Modifying row id.
+            
+                        // Modifying row id.
             $(this).attr("id", `R${dig - 1}`);
         });
-
-        // Removing the current row.
+        
+                    // Removing the current row.
         $(this).closest("tr").remove();
-
-        // Decreasing total number of rows by 1.
+        
+                    // Decreasing total number of rows by 1.
         rowIdx--;
     });
-
+    
     $(document).ready(function(){
-
+        
         $('#cooperative_id').change(function(){ 
             var id=$(this).val();
-                //console.log(id);
+                        //console.log(id);
             $.ajax({
                 url : "<?php echo site_url('members/get_cooperative_clusters');?>",
                 method : "POST",
@@ -196,7 +182,7 @@
                 async : true,
                 dataType : 'json',
                 success: function(data){
-
+                    
                     var html = '';
                     var i;
                     for(i=0; i<data.length; i++){
@@ -209,8 +195,31 @@
             return false;
         }); 
         
+        $('#training_id').change(function(){ 
+            var id=$(this).val();
+                        //console.log(id);
+            $.ajax({
+                url : "<?php echo site_url('training/get_training_topics');?>",
+                method : "POST",
+                data : {id: id},
+                async : true,
+                dataType : 'json',
+                success: function(data){
+                    
+                    var html = '';
+                    var i;
+                    for(i=0; i<data.length; i++){
+                        html += '<option value='+data[i].id+'>'+data[i].training_topic+'</option>';
+                    }
+                    $('#topic_id').html(html);
+                    
+                }
+            });
+            return false;
+        }); 
+        
     });
-
+    
 </script>
 
 </script>

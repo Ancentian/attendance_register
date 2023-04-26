@@ -43,7 +43,7 @@
                                     <th>*</th>
                                     <th>Clusters</th>
                                     <th>Cooperative</th>
-                                    <th>Trainer</th>
+                                    <!-- <th>Trainer</th> -->
                                     <th class="text-end">Action</th>
                                 </tr>
                             </thead>
@@ -92,9 +92,9 @@
                                         <label>Trainer <span class="login-danger">*</span></label>
                                         <select class="form-control " id="trainer_id" name="trainer_id" required>
                                             <option value="">--Choose--</option>
-                                            <?php foreach ($trainers as $key) {?>
-                                            <option value="<?php echo $key->id; ?>"><?php echo $key->first_name." ".$key->last_name;?></option>
-                                            <?php }?>
+                                            <?php //foreach ($trainers as $key) {?>
+                                            <option value="<?php //echo $key->id; ?>"><?php //echo $key->first_name." ".$key->last_name;?></option>
+                                            <?php //}?>
                                         </select>
                                     </div>
                                 </div>
@@ -151,12 +151,12 @@
             var i;
             var rowIdx = 1;
             for(i=0; i<data.length; i++){
-                var fullName = data[i].first_name + ' ' + data[i].last_name; // concatenate first_name with last_name
+                //var fullName = data[i].first_name + ' ' + data[i].last_name; // concatenate first_name with last_name
                 html += '<tr>'+
                         '<td>'+rowIdx+'</td>'+ // add rowIdx in the first column
                         '<td>'+data[i].cluster_name+'</td>'+
                         '<td>'+data[i].cooperative_name+'</td>'+
-                        '<td>'+fullName+'</td>'+ // use the fullName variable instead of data[i].first_name
+                        //'<td>'+fullName+'</td>'+ // use the fullName variable instead of data[i].first_name
                         '<td style="text-align:right;">'+
                             '<a href="javascript:void(0);" class="btn btn-success btn-sm training_edit" data-id="'+data[i].id+'" data-training_name="'+data[i].training_name+'" data-training_date="'+data[i].training_date+'"><i class="fa fa-edit"></i></a>'+' '+
                             '<a href="javascript:void(0);" class="btn btn-danger btn-sm training_delete" data-id="'+data[i].id+'"><i class="fa fa-trash"></i></a>'+

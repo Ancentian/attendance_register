@@ -54,7 +54,8 @@
 
                                     
                                     
-                                    <a href="#" data-bs-toggle="modal" data-bs-target="#add-training" class="btn btn-primary">Add Training <i class="fas fa-plus"></i></a>
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#add-training" class="btn btn-primary" hidden>Add Training <i class="fas fa-plus"></i></a>
+                                    <a href="<?php echo base_url('training/addNewTraining')?>"  class="btn btn-primary">Add New Training <i class="fas fa-plus"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -64,7 +65,8 @@
                                 <tr>
                                     <th>*</th>
                                     <th>Training</th>
-                                    <th>Date</th>
+                                    <th>Start Date</th>
+                                    <th>End Date</th>
                                     <th class="text-end">Action</th>
                                 </tr>
                             </thead>
@@ -225,7 +227,8 @@
                         html += '<tr>'+
                                 '<td>'+rowIdx+'</td>'+
                                 '<td>'+data[i].training_name+'</td>'+
-                                '<td>'+data[i].training_date+'</td>'+
+                                '<td>'+data[i].start_date+'</td>'+
+                                '<td>'+data[i].end_date+'</td>'+
                                 '<td style="text-align:right;">'+
                                     '<a href="javascript:void(0);" class="btn btn-success btn-sm training_edit" data-id="'+data[i].id+'" data-training_name="'+data[i].training_name+'" data-training_date="'+data[i].training_date+'"><i class="fa fa-edit"></i></a>'+' '+
                                     '<a href="javascript:void(0);" class="btn btn-danger btn-sm training_delete" data-id="'+data[i].id+'"><i class="fa fa-trash"></i></a>'+

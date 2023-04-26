@@ -21,6 +21,8 @@
 
     <link rel="stylesheet" href="<?php echo base_url() ?>res/assets/plugins/select2/css/select2.min.css">
 
+    <link rel="stylesheet" href="<?php echo base_url() ?>res/assets/plugins/dragula/css/dragula.min.css">
+
     <link rel="stylesheet" href="<?php echo base_url() ?>res/assets/plugins/toastr/toatr.css">
 
     <!-- Export Data -->
