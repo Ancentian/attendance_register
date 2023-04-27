@@ -250,7 +250,6 @@ error: function() {
                'excel',  'csv', 'pdf', 'print', 'copy',
           ],
           "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
-
     });
 });
 </script>

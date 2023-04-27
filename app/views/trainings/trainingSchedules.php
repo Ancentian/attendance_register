@@ -50,7 +50,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php $i=1; foreach($schedules as $key) { if($key->facilitator == $this->session->userdata('user_aob')->id || $this->session->userdata('user_aob')->role_id == 'admin') {?>
+                                            <?php $i=1; foreach($schedules as $key) { if($key->created_by == $this->session->userdata('user_aob')->id || $this->session->userdata('user_aob')->role_id == 'admin')  {?>
                                                 <tr>
                                                     <td><?php echo $i; ?></td>
                                                     <!-- <td><?php //echo $key->id; ?></td> -->
@@ -102,7 +102,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <?php $i=1; foreach($schedules as $key) { if($key->facilitator == $this->session->userdata('user_aob')->id || $this->session->userdata('user_aob')->role_id == 'admin') {?>
+                                                <?php $i=1; foreach($schedules as $key) { if($key->created_by == $this->session->userdata('user_aob')->id || $this->session->userdata('user_aob')->role_id == 'admin') {?>
                                                     <?php if($key->attendance_status ==0) {?>
                                                     <tr>
                                                         <td><?php echo $i; ?></td>

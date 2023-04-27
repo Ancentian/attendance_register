@@ -62,10 +62,18 @@ class Training extends BASE_Controller
         echo json_encode($data);
     }
 
+    function trainingTopics($training_id)
+    {
+        $this->data['topics'] = $this->training_model->get_topicsByTraining($training_id);
+        $this->data['pg_title'] = "Training Topics";
+        $this->data['page_content'] = 'trainings/addSchedule';
+        $this->load->view('layout/member', $this->data);
+    }
+
     function trainingSchedules()
     {
         $this->data['schedules'] = $this->training_model->get_trainingSchedules();
-        $this->data['pg_title'] = "Home";
+        $this->data['pg_title'] = "Training Schedules";
         $this->data['page_content'] = 'trainings/trainingSchedules';
         $this->load->view('layout/training', $this->data);
     }
@@ -93,7 +101,7 @@ class Training extends BASE_Controller
         $this->data['attendance'] = $this->training_model->get_trainingAttendanceBySchedule($schedule_id);
         $training = $this->training_model->get_trainingByName($training_id);
         $this->data['name'] = $training['training_name'];
-        $this->data['pg_title'] = "Mark Attendance";
+        $this->data['pg_title'] = $training['training_name'];
         $this->data['page_content'] = 'trainings/trainingAttendance';
         $this->load->view('layout/template', $this->data);
     }

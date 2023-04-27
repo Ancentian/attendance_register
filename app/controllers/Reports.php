@@ -28,7 +28,7 @@ class Reports extends BASE_Controller {
         $this->data['attendance'] = $this->training_model->get_trainingAttendanceBySchedule($schedule_id);
         $training = $this->training_model->get_trainingByName($training_id);
         $this->data['name'] = $training['training_name'];
-        $this->data['pg_title'] = "Mark Attendance";
+        $this->data['pg_title'] = $training['training_name'];
         $this->data['page_content'] = 'reports/attendanceList';
         $this->load->view('layout/template', $this->data);
     }
@@ -52,26 +52,6 @@ class Reports extends BASE_Controller {
         $this->data['pg_title'] = "Request Report";
         $this->data['page_content'] = 'reports/feedReports';
         $this->load->view('layout/template', $this->data); 
-    }
-
-    public function paddocksReport()
-    {
-        $this->data['paddocks'] = $this->management->get_paddocks();
-        $this->data['pg_title'] = "Paddocks";
-        $this->data['page_content'] = 'reports/paddocksReport';
-        $this->load->view('layout/template', $this->data);
-    }
-
-    public function productReport($id)
-    {
-        $sdate = "";$edate = "";
-        $forminput = $this->input->get();
-        $sdate = $forminput['sdate'];
-        $edate = $forminput['edate'];
-        $this->data['product'] = $this->reports->get_productUsageByID($id, $sdate, $edate);
-        $this->data['pg_title'] = "Request Report";
-        $this->data['page_content'] = 'reports/productReport';
-        $this->load->view('layout/template', $this->data);
     }
 
     public function paddockFeedReport($id)

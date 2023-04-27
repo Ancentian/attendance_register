@@ -53,7 +53,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php $i=1; foreach($members as $key) {?>
+                                    <?php $i=1; foreach($members as $key) { if($key['created_by'] == $this->session->userdata('user_aob')->id || $this->session->userdata('user_aob')->role_id == 'admin') {?>
                                     <tr>
                                     <td><?php echo $i; ?></td>
                                     <td><?php echo $key['first_name']." ".$key['last_name']?></td>
@@ -77,7 +77,7 @@
                                         </div>
                                     </td>
                                 </tr>
-                                <?php $i++; }?>
+                                <?php $i++; } }?>
                                
                             </tbody>
                         </table>

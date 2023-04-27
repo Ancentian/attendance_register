@@ -62,7 +62,7 @@
                                         <thead>
                                             <tr>
                                                 <th style="width: 20px">#</th>
-                                                <th class="col-md-11">Training Topic</th>  
+                                                <th class="col-md-11">Training Topics</th>  
                                                 <th> </th>
                                             </tr>
                                         </thead>

@@ -13,7 +13,7 @@
             </div>
         </div>
 
-        <div class="student-group-form">
+        <div class="student-group-form" hidden>
             <div class="row">
                 <div class="col-lg-3 col-md-6">
                     <div class="form-group">

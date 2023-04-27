@@ -37,7 +37,7 @@
                                                 <!-- <th>id</th> -->
                                                 <th>Training</th>
                                                 <th>Cooperative</th>
-                                                <th>CBT</th>
+                                                <th>Cluster</th>
                                                 <th>Training Date</th>
                                                 <th>Created By</th>
                                                 <th>Status</th>

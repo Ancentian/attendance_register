@@ -39,7 +39,7 @@
 
                         <div class="table-responsive">
                           <form action="<?php echo base_url('training/storeAttendance')?>" method="POST">
-                            <table class="table border-0 star-student table-hover table-center mb-0 datatable table-striped">
+                            <table class="table border-0 star-student table-hover table-center mb-0 table-striped" id="example">
                                 <thead class="student-thread">
                                     <tr>
                                         <th>*</th>
@@ -49,6 +49,7 @@
                                         <th>Cooperative</th>
                                         <th>Cluster</th>
                                         <th>Date</th>
+                                        <th>Age</th>
                                         <th>Attendance</th> 
                                     </tr>
                                 </thead>
@@ -61,14 +62,20 @@
                                             <td><?php echo $key->training_name?></td>                                  
                                             <td><?php echo ucfirst($key->cooperative_name)?></td>
                                             <td><?php echo ucfirst($key->cluster_name)?></td>
-                                            <td><?php echo date('d/m/Y', strtotime($key->created_at)) ?></td>
-                                            <td>
-                                                <?php if ($key->attendance_value == 1): ?>
+                                            <td><?php echo date('d/m/Y', strtotime($key->training_date)) ?></td>
+                                            <td><?php echo ucfirst($key->age)?></td>
+                                            <!-- <td>
+                                                <?php //if ($key->attendance_value == 1): ?>
                                                 <input class="form-check-input check-item" type="checkbox" checked disabled>
-                                                <?php else: ?>
+                                                <?php //else: ?>
                                                     <input class="form-check-input check-item" type="checkbox" disabled>
-                                                <?php endif; ?>
-                                            </td>
+                                                <?php //endif; ?>
+                                            </td> -->
+                                            <?php if ($key->attendance_value == 1): ?>
+                                                <td><?php echo "Present"; ?></td>
+                                            <?php else: ?>
+                                                <td><?php echo "Absent"; ?></td>
+                                            <?php endif; ?>
                                         </tr>
                                     <?php $i++; }?>
                                 </tbody>

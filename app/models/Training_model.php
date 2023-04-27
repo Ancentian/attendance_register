@@ -44,6 +44,16 @@ class Training_model extends CI_Model{
         return $query;
     }
 
+    public function get_topicsByTraining($training_id)
+    {
+        $this->db->where('training_topics.training_id', $training_id);
+        $this->db->select('training_topics.*, trainings.id as trainID, trainings.training_name');
+        $this->db->from('trainings');
+        $this->db->order_by('training_topics.id', 'DESC');
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
     public function get_trainingSchedules()
     {
         $this->db->select('training_schedules.*, trainings.id as trainID, trainings.training_name, cooperatives.id as coID, cooperatives.cooperative_name, users.id as userID, users.first_name, users.last_name, training_clusters.id as clusterID, training_clusters.cluster_name');
@@ -124,7 +134,7 @@ class Training_model extends CI_Model{
     public function get_trainingAttendanceBySchedule($schedule_id)
     { 
         $this->db->where('trainings_attendance.schedule_id', $schedule_id);
-        $this->db->select('trainings_attendance.*, training_schedules.id, training_schedules.cooperative_id, training_schedules.cluster_id, training_clusters.id as clusterID, training_clusters.cluster_name, trainings.id as trainID, trainings.training_name, cooperatives.id as copID, cooperatives.cooperative_name,members.first_name, members.last_name, members.id_number, members.cluster_id, members.cooperative_id, members.age');
+        $this->db->select('trainings_attendance.*, training_schedules.id, training_schedules.cooperative_id, training_schedules.cluster_id, training_schedules.training_date, training_clusters.id as clusterID, training_clusters.cluster_name, trainings.id as trainID, trainings.training_name, cooperatives.id as copID, cooperatives.cooperative_name,members.first_name, members.last_name, members.id_number, members.cluster_id, members.cooperative_id, members.age');
         $this->db->from('trainings_attendance');
         $this->db->join('training_schedules', 'training_schedules.id = trainings_attendance.schedule_id');
         $this->db->join('training_clusters', 'training_clusters.id = training_schedules.cluster_id');

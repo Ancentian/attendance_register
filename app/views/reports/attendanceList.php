@@ -64,14 +64,12 @@
                                             <td><?php echo ucfirst($key->cooperative_name)?></td>
                                             <td><?php echo ucfirst($key->cluster_name)?></td>
                                             <td><?php echo $key->age?></td> 
-                                            <td><?php echo date('d/m/Y', strtotime($key->created_at)) ?></td>
-                                            <td>
-                                                <?php if ($key->attendance_value == 1): ?>
-                                                <input class="form-check-input check-item" value="1" type="checkbox" checked disabled>
-                                                <?php else: ?>
-                                                    <input class="form-check-input check-item" type="checkbox" disabled>
-                                                <?php endif; ?>
-                                            </td>
+                                            <td><?php echo date('d/m/Y', strtotime($key->training_date)) ?></td>
+                                            <?php if ($key->attendance_value == 1): ?>
+                                                <td><?php echo "Present"; ?></td>
+                                            <?php else: ?>
+                                                <td><?php echo "Absent"; ?></td>
+                                            <?php endif; ?>
                                         </tr>
                                     <?php $i++; }?>
                                 </tbody>
