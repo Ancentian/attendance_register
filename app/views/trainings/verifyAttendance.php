@@ -50,10 +50,16 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php $i=1; foreach($schedules as $key) {?>
+                                            <?php $i=1; foreach($schedules as $key) { if($key->created_by == $this->session->userdata('user_aob')->id || $this->session->userdata('user_aob')->role_id == 'admin') {?>
                                                 <tr>
                                                     <td><?php echo $i; ?></td>
-                                                    <td><?php echo strtoupper($key->training_name) ?></a></td>
+                                                    <!-- <td><?php //echo strtoupper($key->training_name) ?></a></td> -->
+                                                    <?php if($key->verified == 0) {?>
+                                                        <td><?php echo strtoupper($key->training_name) ?></td>
+                                                        <?php } elseif ($key->verified == 1) { ?>
+                                                        <td> <a href="<?php echo base_url('training/trainingAttendance/'.$key->id."/".$key->cooperative_id."/".$key->clusterID."/".$key->training_id) ?>" title="View Attendance" style="color: blue;" onmouseover="this.style.color='red';" onmouseout="this.style.color='blue';"><?php echo strtoupper($key->training_name) ?></a>
+                                                        </td>
+                                                        <?php }?>
                                                     <td><?php echo $key->cooperative_name?></td>
                                                     <td><?php echo $key->cluster_name?></td> 
                                                     <td><?php echo $key->training_date?></td>
@@ -76,7 +82,7 @@
                                                         </div>
                                                     </td>
                                                 </tr>
-                                                <?php $i++; }?>
+                                                <?php $i++; } }?>
 
                                             </tbody>
                                         </table>
@@ -98,14 +104,13 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <?php $i=1; foreach($schedules as $key) {?>
+                                                <?php $i=1; foreach($schedules as $key) { if($key->created_by == $this->session->userdata('user_aob')->id || $this->session->userdata('user_aob')->role_id == 'admin') {?>
                                                     <?php if($key->verified == 0) {?>
                                                     <tr>
                                                         <td><?php echo $i; ?></td>
                                                         <?php if($key->attendance_status == 0) {?>
                                                         <td><?php echo strtoupper($key->training_name) ?></td>
                                                         <?php } elseif ($key->attendance_status == 1) { ?>
-                                                        
                                                         <td> <a href="<?php echo base_url('training/verify_trainingAttendance/'.$key->training_id."/".$key->cooperative_id."/".$key->clusterID."/".$key->id) ?>" style="color: blue;" onmouseover="this.style.color='red';" onmouseout="this.style.color='blue';"><?php echo strtoupper($key->training_name) ?></a>
                                                         </td>
                                                         <?php }?>
@@ -120,7 +125,7 @@
                                                         <?php }?>
                                                     </tr>
                                                     <?php $i++; }?>
-                                                    <?php }?>
+                                                    <?php } }?>
                                                 </tbody>
                                             </table>
                                         </div>

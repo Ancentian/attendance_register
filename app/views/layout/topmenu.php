@@ -2,7 +2,7 @@
 
             <div class="header-left">
                 <a href="<?php echo base_url('home')?>" class="logo">
-                    <img src="<?php echo base_url() ?>res/assets/img/avsi.jpg" alt="Logo">
+                    <img src="<?php echo base_url() ?>res/assets/img/avsi.png" alt="Logo">
                 </a>
                 <a href="<?php echo base_url('home')?>" class="logo logo-small">
                     <img src="<?php echo base_url() ?>res/assets/img/avsi.jpg" alt="Logo" width="30" height="30">

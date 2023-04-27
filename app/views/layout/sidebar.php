@@ -14,22 +14,6 @@
                                 </ul>
                             </li>
                             <?php if ($this->session->userdata('user_aob')->role_id == 'admin' || $this->session->userdata('user_aob')->role_id == 'trainer' || $this->session->userdata('user_aob')->role_id == 'field_officer' || $this->session->userdata('user_aob')->role_id == 'field_coordinator' || $this->session->userdata('user_aob')->role_id == 'finance') { ?>
-                            <li class="submenu">
-                                <a href="#"><i class="fas fa-graduation-cap"></i> <span> Training</span> <span
-                                    class="menu-arrow"></span></a>
-                                    <ul>
-                                        <li><a href="<?php echo base_url('training/index')?>">Add New Trainings</a></li>
-                                        <li hidden><a href="<?php echo base_url('training/scheduleTraining')?>">Scheduled Training</a></li>
-                                        <li><a href="<?php echo base_url('training/addSchedule')?>">Schedule New Training</a></li>
-                                        <li><a href="<?php echo base_url('training/trainingSchedules')?>">All Schedules</a></li>
-                                        <li hidden><a href="<?php echo base_url('training/viewAttendance')?>">Attendance List</a></li>
-                                        <?php if($this->session->userdata('user_aob')->role_id == 'admin' || $this->session->userdata('user_aob')->role_id == 'field_coordinator' || $this->session->userdata('user_aob')->role_id == 'finance') { ?>
-                                        <li><a href="<?php echo base_url('training/verifyAttendance')?>">Verify Attendance</a></li>
-                                        <?php }?>
-                                    </ul>
-                                </li>
-                            <?php }?>
-                                <?php if ($this->session->userdata('user_aob')->role_id == 'admin' || $this->session->userdata('user_aob')->role_id == 'trainer' || $this->session->userdata('user_aob')->role_id == 'field_officer' || $this->session->userdata('user_aob')->role_id == 'field_coordinator' || $this->session->userdata('user_aob')->role_id == 'finance') { ?>
                                 <li class="submenu">
                                     <a href="#"><i class="fas fa-chalkboard-teacher"></i> <span> Farmers</span> <span
                                         class="menu-arrow"></span></a>
@@ -39,6 +23,22 @@
                                         </ul>
                                 </li> 
                                 <?php }?>
+                            <?php if ($this->session->userdata('user_aob')->role_id == 'admin' || $this->session->userdata('user_aob')->role_id == 'trainer' || $this->session->userdata('user_aob')->role_id == 'field_officer' || $this->session->userdata('user_aob')->role_id == 'field_coordinator' || $this->session->userdata('user_aob')->role_id == 'finance') { ?>
+                            <li class="submenu">
+                                <a href="#"><i class="fas fa-graduation-cap"></i> <span> Training</span> <span
+                                    class="menu-arrow"></span></a>
+                                    <ul>
+                                        <li hidden><a href="<?php echo base_url('training/scheduleTraining')?>">Scheduled Training</a></li>
+                                        <li><a href="<?php echo base_url('training/addSchedule')?>">Schedule New Training</a></li>
+                                        <li><a href="<?php echo base_url('training/trainingSchedules')?>">All Schedules</a></li>
+                                        <li hidden><a href="<?php echo base_url('training/viewAttendance')?>">Attendance List</a></li>
+                                        <?php //if($this->session->userdata('user_aob')->role_id == 'admin' || $this->session->userdata('user_aob')->role_id == 'field_coordinator'|| $this->session->userdata('user_aob')->role_id == 'field_officer' || $this->session->userdata('user_aob')->role_id == 'finance') { ?>
+                                        <li><a href="<?php echo base_url('training/verifyAttendance')?>">Verify Attendance</a></li>
+                                        <?php //}?>
+                                    </ul>
+                                </li>
+                            <?php }?>
+                                
                                 <?php if ($this->session->userdata('user_aob')->role_id == 'admin' || $this->session->userdata('user_aob')->role_id == 'finance') { ?>
                                 <li class="menu-title">
                                     <span>Management</span>
@@ -47,6 +47,7 @@
                                     <a href="#"><i class="fas fa-cog"></i> <span>Management</span> <span
                                         class="menu-arrow"></span></a>
                                         <ul>
+                                            <li><a href="<?php echo base_url('training/index')?>">Add New Trainings</a></li>
                                             <li><a href="<?php echo base_url('cooperatives/index')?>">Cooperatives</a></li>
                                             <li><a href="<?php echo base_url('cooperatives/clusters')?>">Clusters</a></li>                                          
                                         </ul>
