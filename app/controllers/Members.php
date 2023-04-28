@@ -135,6 +135,19 @@ class Members extends BASE_Controller
         redirect(base_url('members/index'));
     }
 
+    public function deletemember()
+    {
+        $id = $this->input->get('memberID');
 
+        $inserted = $this->member->delete_member($id);
+        if ($inserted > 0) {
+            $this->session->set_flashdata('success', 'Member Deleted Successfully');
+        } else {
+            $this->session->set_flashdata('error', 'Failed, please try again');
+        }
+        redirect('members/index');
+
+        
+    }
 
 }

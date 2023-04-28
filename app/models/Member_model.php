@@ -11,7 +11,14 @@ class Member_model extends CI_Model{
     */
     public function get_members()
     {
-        $this->db->select('members.*, cooperatives.id as copID, cooperatives.cooperative_name, users.id, users.first_name as fname, users.last_name as lname, training_clusters.id as clusterID, training_clusters.cooperative_id, training_clusters.cluster_name');
+        $id = $this->session->userdata('user_aob')->id;
+
+        if($this->session->userdata('user_aob')->role_id == 'trainer' || $this->session->userdata('user_aob')->role_id == 'field_officer'){
+            $this->db->where('members.created_by', $id);
+            $this->db->select('members.*, cooperatives.id as copID, cooperatives.cooperative_name, users.id, users.first_name as fname, users.last_name as lname, training_clusters.id as clusterID, training_clusters.cooperative_id, training_clusters.cluster_name');
+        }  elseif ($this->session->userdata('user_aob')->role_id == 'admin') {
+            $this->db->select('members.*, cooperatives.id as copID, cooperatives.cooperative_name, users.id, users.first_name as fname, users.last_name as lname, training_clusters.id as clusterID, training_clusters.cooperative_id, training_clusters.cluster_name');
+        }
         $this->db->from('members');
         $this->db->join('cooperatives', 'cooperatives.id = members.cooperative_id');
         $this->db->join('users', 'users.id = members.created_by');
@@ -85,10 +92,10 @@ class Member_model extends CI_Model{
     /*
         Delete a record in the database
     */
-    public function delete_staff($id)
+    public function delete_member($id)
     {
-        $this->db->where('id', $id);
-        $this->db->delete('users');
+        $this->db->where('id_number', $id);
+        $this->db->delete('members');
         return $this->db->affected_rows();
     }
 
