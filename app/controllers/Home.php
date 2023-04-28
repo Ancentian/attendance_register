@@ -14,10 +14,23 @@ class Home extends BASE_Controller
     /*
      * Default method for this controller - Auth
      */
-    function index()
+    public function index()
+    {
+        if ($this->session->userdata('user_aob')->role_id == 'admin') {
+            $this->data['pg_title'] = "Home";
+            $this->data['page_content'] = 'home/index';
+            $this->load->view('layout/template', $this->data);
+        } elseif ($this->session->userdata('user_aob')->role_id == 'trainer' || $this->session->userdata('user_aob')->role_id == 'field_officer') {
+            $this->fieldOfficer();
+        } else {
+            $this->logout();
+        }
+    }
+
+    public function fieldOfficer()
     {
         $this->data['pg_title'] = "Home";
-        $this->data['page_content'] = 'home/index';
+        $this->data['page_content'] = 'home/fieldOfficer';
         $this->load->view('layout/template', $this->data);
     }
 

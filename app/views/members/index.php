@@ -49,11 +49,12 @@
                                         <th>Mobile No.</th>
                                         <th>Age</th>
                                         <th>Created By</th>
+                                        <th>Created At</th>
                                         <th class="text-end">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php $i=1; foreach($members as $key) { if($key['created_by'] == $this->session->userdata('user_aob')->id || $this->session->userdata('user_aob')->role_id == 'admin') {?>
+                                    <?php $i=1; foreach($members as $key) { ?>
                                     <tr>
                                     <td><?php echo $i; ?></td>
                                     <td><?php echo $key['first_name']." ".$key['last_name']?></td>
@@ -64,6 +65,7 @@
                                     <td><?php echo $key['phone_number']?></td>  
                                     <td><?php echo $key['age']?></td>
                                     <td><?php echo $key['fname']." ".$key['lname']?></td>
+                                    <td><?php echo $key['created_at']?></td>
                                     <td class="text-end">
                                         <div class="actions">
                                             <a href="<?php echo base_url('members/memberProfile?memberID='. $key['id_number'])?>" title="View Member" class="btn btn-sm bg-success-light me-2">
@@ -74,10 +76,14 @@
                                                 <i class="feather-edit"></i>
                                             </a>
 
+                                            <a href="<?php echo base_url('members/deleteMember?memberID='. $key['id_number'])?>" title="Delete Member" class="btn btn-sm bg-danger-light">
+                                                <i class="feather-trash"></i>
+                                            </a>
+
                                         </div>
                                     </td>
                                 </tr>
-                                <?php $i++; } }?>
+                                <?php $i++; } ?>
                                
                             </tbody>
                         </table>

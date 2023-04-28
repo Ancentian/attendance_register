@@ -67,6 +67,14 @@ class Home_model extends CI_Model{
         echo $query->num_rows();
     }
 
+    public function count_membersByUser()
+    {
+        $id = $this->session->userdata('user_aob')->id;
+        $this->db->where('created_by', $id);
+        $query = $this->db->get('members');
+        echo $query->num_rows();
+    }
+
     public function count_cooperatives()
     {
         $query = $this->db->get('cooperatives');
@@ -75,6 +83,14 @@ class Home_model extends CI_Model{
 
     public function count_trainings()
     {
+        $query = $this->db->get('training_schedules');
+        echo $query->num_rows();
+    }
+
+    public function count_trainingsByUser()
+    {
+        $id = $this->session->userdata('user_aob')->id;
+        $this->db->where('created_by', $id);
         $query = $this->db->get('training_schedules');
         echo $query->num_rows();
     }
