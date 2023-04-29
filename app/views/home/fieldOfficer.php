@@ -8,7 +8,7 @@
                         <h3 class="page-title">Welcome <?php echo $this->session->userdata('user_aob')->first_name?>!</h3>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="<?php echo base_url('home') ?>">Home</a></li>
-                            <li class="breadcrumb-item active">Admin</li>
+                            <li class="breadcrumb-item active">Arabica</li>
                         </ul>
                     </div>
                 </div>
@@ -26,7 +26,7 @@
                     <div class="card-body">
                         <div class="db-widgets d-flex justify-content-between align-items-center">
                             <div class="db-info">
-                                <h6>Members</h6>
+                                <h6>Farmers</h6>
                                 <h3><?php echo $this->home_model->count_membersByUser() ?></h3>
                             </div>
                             <div class="db-icon">

@@ -42,24 +42,36 @@ class Reports extends BASE_Controller {
         $this->load->view('layout/training', $this->data);
     }
 
-    public function feedReports()
+    public function clusterReports()
     {
-        $sdate = "";$edate = "";
-        $forminput = $this->input->get();
-        $sdate = $forminput['sdate'];
-        $edate = $forminput['edate'];
-        $this->data['usages'] = $this->reports->get_allUsages();
-        $this->data['pg_title'] = "Request Report";
-        $this->data['page_content'] = 'reports/feedReports';
+        $this->data['clusters'] = $this->reports->get_allClusters();
+        $this->data['pg_title'] = "Cluster Reports";
+        $this->data['page_content'] = 'reports/clusterReport';
         $this->load->view('layout/template', $this->data); 
     }
 
-    public function paddockFeedReport($id)
+    public function cooperativeReports()
     {
-        $this->data['feed'] = $this->reports->get_paddockFeedByID($id);
-        $this->data['pg_title'] = "Request Report";
-        $this->data['page_content'] = 'reports/paddockFeedReport';
-        $this->load->view('layout/template', $this->data);
+        $this->data['cooperatives'] = $this->reports->get_allCooperatives();
+        $this->data['pg_title'] = "Cluster Reports";
+        $this->data['page_content'] = 'reports/cooperativeReport';
+        $this->load->view('layout/template', $this->data); 
+    }
+
+    public function clusterFarmers($cluster_id)
+    {
+        $this->data['members'] = $this->reports->get_farmersByClusters($cluster_id);
+        $this->data['pg_title'] = "Cluster Reports";
+        $this->data['page_content'] = 'reports/clusterFarmers';
+        $this->load->view('layout/template', $this->data); 
+    }
+
+    public function cooperativeFarmers($cooperative_id)
+    {
+        $this->data['members'] = $this->reports->get_farmersByCooperatives($cooperative_id);
+        $this->data['pg_title'] = "Cluster Reports";
+        $this->data['page_content'] = 'reports/cooperativeFarmers';
+        $this->load->view('layout/template', $this->data); 
     }
 
     public function paymentReports()
