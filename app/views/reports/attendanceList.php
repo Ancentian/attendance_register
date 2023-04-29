@@ -45,7 +45,7 @@
                                         <th>*</th>
                                         <th>Member</th>
                                         <th>ID</th>
-                                        <th>Training</th>     
+                                        <!-- <th>Training</th>      -->
                                         <th>Cooperative</th>
                                         <th>Cluster</th>
                                         <th>Age</th>
@@ -59,7 +59,7 @@
                                             <td><?php echo $i; ?></td>
                                             <td><?php echo $key->first_name." ".$key->last_name?></td>
                                             <td><?php echo $key->id_number?></td>
-                                            <td><?php echo $key->training_name?></td>                               
+                                            <!-- <td><?php //echo $key->training_name?></td>                                -->
                                             
                                             <td><?php echo ucfirst($key->cooperative_name)?></td>
                                             <td><?php echo ucfirst($key->cluster_name)?></td>

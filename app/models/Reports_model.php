@@ -2,13 +2,13 @@
 
 
 class Reports_model extends CI_Model{
-
+    
     public function __construct()
     {
-
+        
     }
     /*
-        Get all the records from the database
+    Get all the records from the database
     */
     public function get_trainingSchedules()
     {
@@ -22,7 +22,7 @@ class Reports_model extends CI_Model{
         $training = $this->db->get();
         return $training->result();
     }
-
+    
     public function get_verifiedByID($id)
     {
         $this->db->where('id', $id);
@@ -30,85 +30,80 @@ class Reports_model extends CI_Model{
         $query = $this->db->get();
         $first_name = $query->row_array();
     }
-
-    public function get_productUsageByID($id, $sdate, $edate)
+    
+    public function get_allClusters()
     {
-        $this->db->where('products_usage.product_id', $id);
-        $this->db->select('products_usage.id as prodUsID,products_usage.product_id, products_usage.qty,products_usage.created_at, products.id as prodID, products.productName,products.productType,paddocks.id as paddockID, paddocks.paddockName');
-        $this->db->from('products_usage');
-        $this->db->join('products', 'products.id = products_usage.product_id');
-        $this->db->join('paddocks', 'paddocks.id = products_usage.paddock_id');
-        if($sdate != "" && $edate != ""){
-            $edate = date('Y-m-d',strtotime($edate)+86400);
-            $this->db->where('products_usage.created_at >=',$sdate);
-            $this->db->where('products_usage.created_at <',$edate);
-        }
-        $this->db->order_by('products_usage.created_at', 'DESC');
+        $this->db->select('training_clusters.*, cooperatives.id as copID, cooperatives.cooperative_name');
+        $this->db->from('training_clusters');
+        $this->db->join('cooperatives', 'cooperatives.id = training_clusters.cooperative_id');
+        $this->db->order_by('training_clusters.cluster_name', 'DESC');
         $query = $this->db->get();
         return $query->result_array();
     }
 
-    public function fetch_inventoryReport()
+    public function get_allCooperatives()
     {
-        $this->db->select('event_requests.*,customers.id as custID, customers.customerName');
-        $this->db->from('event_requests');
-        $this->db->join('customers', 'customers.id = event_requests.customerID');
-        //$this->db->join('events', 'events.id = event_requests.eventID');
+        $this->db->select()->from('cooperatives');
+        $this->db->order_by('id', 'DESC');
         $query = $this->db->get();
         return $query->result_array();
     }
-
-    public function get_paddockFeedByID($id)
+    
+    public function count_farmers_by_cluster($cluster_id)
     {
-        $this->db->where('products_usage.paddock_id', $id);
-        $this->db->select('products_usage.id as prodUsID,products_usage.product_id, SUM(products_usage.qty) as usedQty,products_usage.created_at, products.id as prodID, products.productName,products.productType,paddocks.id as paddockID, paddocks.paddockName');
-        $this->db->from('products_usage');
-        $this->db->join('products', 'products.id = products_usage.product_id');
-        $this->db->join('paddocks', 'paddocks.id = products_usage.paddock_id');
-        
-        $this->db->group_by('products_usage.product_id');
-        $this->db->order_by('products_usage.qty', 'DESC');
+        $this->db->where('cluster_id', $cluster_id);
+        $this->db->select('cluster_id')->from('members');
         $query = $this->db->get();
-        return $query->result_array();
+        return $query->num_rows();
     }
 
+    public function count_clusters_by_cooperative($cooperative_id)
+    {
+        $this->db->where('cooperative_id', $cooperative_id);
+        $this->db->from('training_clusters');
+        $query = $this->db->get();
+        return $query->num_rows();
+    }
 
+    public function count_members_by_cooperative($cooperative_id)
+    {
+        $this->db->where('cooperative_id', $cooperative_id);
+        $this->db->select('cooperative_id')->from('members');
+        $query = $this->db->get();
+        return $query->num_rows();
+    }
+    
     /*
-        Store the record in the database
+    Get an specific record from the database
     */
-    public function storeProduction($data)
+    public function get_farmersByCooperatives($cooperative_id)
     {
-        $this->db->insert('productions', $data);
-        return $this->db->affected_rows();
-    }
-
-    /*
-        Get an specific record from the database
-    */
-    public function get($id)
-    {
-        $this->db->where('id', $id);
-        $this->db->select()->from('productions');
+        $this->db->where('members.cooperative_id', $cooperative_id);
+        $this->db->select('members.*, cooperatives.id as copID, cooperatives.cooperative_name, users.id, users.first_name as fname, users.last_name as lname, training_clusters.id as clusterID, training_clusters.cooperative_id, training_clusters.cluster_name');
+        $this->db->from('members');
+        $this->db->join('cooperatives', 'cooperatives.id = members.cooperative_id');
+        $this->db->join('users', 'users.id = members.created_by');
+        $this->db->join('training_clusters', 'training_clusters.id = members.cluster_id');
+        $this->db->order_by('members.id', 'DESC');
         $query = $this->db->get();
-        return $query->result_array()[0];
+        return $query->result_array();
     }
 
-    function totalPayment($id)
+    public function get_farmersByClusters($cluster_id)
     {
-        $data = $this->get_production($id);
-        $prodId = $data['id'];
-        var_dump($prodId);die;
-        $query = $this->db->query('select *, sum(amount_paid) as totsum from payments WHERE(production_id="'.$id.'")');
-        $info = $query->result_array();
-        $totsold = $info[0]['totsum'];
-        if(!$totsold){
-                $totsold = 0;
-        }
-        return $totsold;
+        $this->db->where('members.cluster_id', $cluster_id);
+        $this->db->select('members.*, cooperatives.id as copID, cooperatives.cooperative_name, users.id, users.first_name as fname, users.last_name as lname, training_clusters.id as clusterID, training_clusters.cooperative_id, training_clusters.cluster_name');
+        $this->db->from('members');
+        $this->db->join('cooperatives', 'cooperatives.id = members.cooperative_id');
+        $this->db->join('users', 'users.id = members.created_by');
+        $this->db->join('training_clusters', 'training_clusters.id = members.cluster_id');
+        $this->db->order_by('members.id', 'DESC');
+        $query = $this->db->get();
+        return $query->result_array();
     }
-
+    
     /*
-        Destroy or Remove a record in the database
+    Destroy or Remove a record in the database
     */
     public function delete($id)
     {
@@ -116,6 +111,6 @@ class Reports_model extends CI_Model{
         $this->db->delete('payments');
         return $this->db->affected_rows();
     }
-
+    
 }
 ?>

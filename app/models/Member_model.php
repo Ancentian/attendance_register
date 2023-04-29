@@ -96,6 +96,7 @@ class Member_model extends CI_Model{
     {
         $this->db->where('id_number', $id);
         $this->db->delete('members');
+        $this->db->delete('trainings_attendance');
         return $this->db->affected_rows();
     }
 

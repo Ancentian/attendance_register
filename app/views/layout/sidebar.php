@@ -65,6 +65,8 @@
                                         <ul>
                                             <li><a href="<?php echo base_url('reports/attendanceReports')?>">Attendance Reports</a></li>
                                             <li><a href="<?php echo base_url('reports/trainingReports')?>">Training Report</a></li>
+                                            <li><a href="<?php echo base_url('reports/cooperativeReports')?>">Cooperative Report</a></li>
+                                            <li><a href="<?php echo base_url('reports/clusterReports')?>">Cluster Report</a></li>
                                         </ul>
                                     </li>                       
                                     </ul>
